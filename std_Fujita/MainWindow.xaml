@@ -1,0 +1,48 @@
+﻿<Window x:Class="std_Fujita.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:std_Fujita"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="540" Width="960"
+        Loaded="MainWindow_OnLoaded">
+    <Window.Resources>
+        <!--ボタン用スタイル-->
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left"/>            
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Margin" Value="10,10,5,5"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        
+        <!--ラベル用スタイル-->
+        <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>            
+        </Style>
+        
+        <!--上下限付き数字入力ボックススタイル-->
+        <Style x:Key="DecimalStyle" TargetType="{x:Type xcdg:DecimalUpDown}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FormatString" Value="NO"/>
+            <Setter Property="Padding" Value="2,2"/>
+            <Setter Property="FontSize" Value="9"/>
+        </Style>
+        
+        <!--チェックボックス用スタイル-->
+        <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="Margin" Value="10,0,5,0"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        
+    </Grid>
+</Window>

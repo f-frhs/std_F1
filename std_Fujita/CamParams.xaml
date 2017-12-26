@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="std_Fujita.CamParams"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:std_Fujita"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <!--ラベル用スタイル-->
+        <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center"/> 
+            <Setter Property="HorizontalAlignment" Value="Right"/> 
+            <Setter Property="TextAlignment"/> 
+            <Setter Property="Padding" Value="2"/> 
+            <Setter Property="FontSize" Value="9"/> 
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/> 
+        </Style>
+        
+        <!--チェックボックス用スタイル-->
+        <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+            
+        </Style>
+    </UserControl.Resources>
+</UserControl>
