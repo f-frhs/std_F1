@@ -18,11 +18,13 @@ namespace std_Fujita
     /// <summary>
     /// Page1.xaml の相互作用ロジック
     /// </summary>
-    public partial class Page1 : Page
+    public partial class CamParams : UserControl
     {
-        public Page1()
+        public CamParams()
         {
             InitializeComponent();
+
+            this.baseContainer.DataContext = new CamViewAreaDVModel();
         }
     }
 }
