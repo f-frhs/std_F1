@@ -110,26 +110,27 @@
                 <TextBlock Grid.Row="18" Grid.Column="0" Text="フィルタ高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding KSizeY}"/>
                 <TextBlock Grid.Row="19" Grid.Column="0" Text="水平シグマ" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaX}"/>
                 <TextBlock Grid.Row="20" Grid.Column="0" Text="垂直シグマ" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaY}"/>
-                <TextBlock Grid.Row="21" Grid.Column="0" Text="平行最小角度" Style="{StaticResource LabelStyle}" ToolTip="{Binding LowerThetaLimitStr}"/>
-                <TextBlock Grid.Row="22" Grid.Column="0" Text="領域選択" Style="{StaticResource LabelStyle}" ToolTip="{Binding HasToMaskStr}"/>
-                <TextBlock Grid.Row="23" Grid.Column="0" Text="領域X座標" Style="{StaticResource LabelStyle}" ToolTip="{Binding X1Str}"/>
-                <TextBlock Grid.Row="24" Grid.Column="0" Text="領域Y座標" Style="{StaticResource LabelStyle}" ToolTip="{Binding Y1Str}"/>
-                <TextBlock Grid.Row="25" Grid.Column="0" Text="領域幅" Style="{StaticResource LabelStyle}" ToolTip="{Binding RecWidthStr}"/>
-                <TextBlock Grid.Row="26" Grid.Column="0" Text="領域高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding RecHeightStr}"/>
-                <TextBlock Grid.Row="27" Grid.Column="0 " Text="フィルタ幅" Style="{StaticResource LabelStyle}" ToolTip="{Binding KSizeX}"/>
-                <TextBlock Grid.Row="28" Grid.Column="0" Text="フィルタ高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding KSizeY}"/>
-                <TextBlock Grid.Row="29" Grid.Column="0" Text="水平シグマ" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaX}"/>
-                <TextBlock Grid.Row="30" Grid.Column="0" Text="垂直シグマ" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaY}"/>
-                <TextBlock Grid.Row="31" Grid.Column="0" Text="平行最小角度" Style="{StaticResource LabelStyle}" ToolTip="{Binding LowerThetaLimitStr}"/>
-                <TextBlock Grid.Row="32" Grid.Column="0" Text="領域選択" Style="{StaticResource LabelStyle}" ToolTip="{Binding HasToMaskStr}"/>
-                <TextBlock Grid.Row="33" Grid.Column="0" Text="領域X座標" Style="{StaticResource LabelStyle}" ToolTip="{Binding X1Str}"/>
-                <TextBlock Grid.Row="34" Grid.Column="0" Text="領域Y座標" Style="{StaticResource LabelStyle}" ToolTip="{Binding Y1Str}"/>
-                <TextBlock Grid.Row="35" Grid.Column="0" Text="領域幅" Style="{StaticResource LabelStyle}" ToolTip="{Binding RecWidthStr}"/>
-                <TextBlock Grid.Row="36" Grid.Column="0" Text="領域高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding RecHeightStr}"/>
-                <TextBlock Grid.Row="37" Grid.Column="0 " Text="フィルタ幅" Style="{StaticResource LabelStyle}" ToolTip="{Binding KSizeX}"/>
-                <TextBlock Grid.Row="38" Grid.Column="0" Text="フィルタ高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding KSizeY}"/>
-                <TextBlock Grid.Row="39" Grid.Column="0" Text="水平シグマ" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaX}"/>
-                <TextBlock Grid.Row="40" Grid.Column="0" Text="垂直シグマ" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaY}"/>
+                <TextBlock Grid.Row="21" Grid.Column="0" Text="角度　閾値" Style="{StaticResource LabelStyle}" ToolTip="{Binding SlopeAngleResolution}"/>
+                <TextBlock Grid.Row="22" Grid.Column="0" Text="Ｙ切片　閾値" Style="{StaticResource LabelStyle}" ToolTip="{Binding IntersectResolution}"/>
+                <TextBlock Grid.Row="23" Grid.Column="0" Text="直線検出用　Ｘ1" Style="{StaticResource LabelStyle}" ToolTip="{Binding Point1X}"/>
+                <TextBlock Grid.Row="24" Grid.Column="0" Text="直線検出用　Ｙ1" Style="{StaticResource LabelStyle}" ToolTip="{Binding Point1Y}"/>
+                <TextBlock Grid.Row="25" Grid.Column="0" Text="直線検出用　Ｘ2" Style="{StaticResource LabelStyle}" ToolTip="{Binding Point2X}"/>
+                <TextBlock Grid.Row="26" Grid.Column="0" Text="直線検出用　Ｙ2" Style="{StaticResource LabelStyle}" ToolTip="{Binding Point2Y}"/>
+                <TextBlock Grid.Row="27" Grid.Column="0" Text="Reference Point X1" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerPointX}"/>
+                <TextBlock Grid.Row="28" Grid.Column="0" Text="Reference Point Y1" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerPointY}"/>
+                <TextBlock Grid.Row="29" Grid.Column="0" Text="Reference 角度" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerAngle}"/>
+                <TextBlock Grid.Row="30" Grid.Column="0" Text="Reference Point X2" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerPointX2}"/>
+                <TextBlock Grid.Row="31" Grid.Column="0" Text="Reference Point Y2" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerPointY2}"/>
+                <TextBlock Grid.Row="32" Grid.Column="0" Text="Bilateral filter 1" Style="{StaticResource LabelStyle}" ToolTip="{Binding BirateralKernel}"/>
+                <TextBlock Grid.Row="33" Grid.Column="0" Text="Bilateral filter 2" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaSpace}"/>
+                <TextBlock Grid.Row="34" Grid.Column="0" Text="Bilateral filter 3" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaColer}"/>
+                <TextBlock Grid.Row="35" Grid.Column="0" Text="コーナー検索 1(size)" Style="{StaticResource LabelStyle}" ToolTip="{Binding SearchLength}"/>
+                <TextBlock Grid.Row="36" Grid.Column="0" Text="コーナー検索 2(size)" Style="{StaticResource LabelStyle}" ToolTip="{Binding SearchLine}"/>
+                <TextBlock Grid.Row="37" Grid.Column="0 " Text="Chess board 1" Style="{StaticResource LabelStyle}" ToolTip="{Binding ChessCrossWidth}"/>
+                <TextBlock Grid.Row="38" Grid.Column="0" Text="Chess board 2" Style="{StaticResource LabelStyle}" ToolTip="{Binding ChessCrossHeigth}"/>
+                <TextBlock Grid.Row="39" Grid.Column="0" Text="Chess board 3" Style="{StaticResource LabelStyle}" ToolTip="{Binding ChessSquareSize}"/>
+                <TextBlock Grid.Row="40" Grid.Column="0" Text="Chess board 4" Style="{StaticResource LabelStyle}" ToolTip="{Binding OffsetX}"/>
+                <TextBlock Grid.Row="41" Grid.Column="0" Text="Chess board 5" Style="{StaticResource LabelStyle}" ToolTip="{Binding OffsetY}"/>                
                 
                 <!--2列目：数値入力部の表示-->
                 <CheckBox Grid.Row="0" Grid.Column="1" x:Name="CheckBox1" IsChecked="{Binding HasToUndistort,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource checkBoxStyle}" ToolTip="{Binding HasToUndistortStr}"/>
@@ -163,17 +164,17 @@
                 <xctk:DecimalUpDown Grid.Row="28" Grid.Column="1" x:Name="TextBoxRefCornerPointY" FormatString="N0" Increment="1" Minimum="0" Value="{Binding RefCornerPointY,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding RefCornerPointY}"/>
                 <xctk:DecimalUpDown Grid.Row="29" Grid.Column="1" x:Name="TextBoxRefCornerAngle" FormatString="F5" Increment="0.01" Value="{Binding RefCornerAngle,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding RefCornerAngle}"/>
                 <xctk:DecimalUpDown Grid.Row="30" Grid.Column="1" x:Name="TextBoxRefCornerPointX2" FormatString="F5" Increment="0.01" Value="{Binding RefCornerPointX2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding RefCornerPointX2}"/>                
-                <xctk:DecimalUpDown Grid.Row="30" Grid.Column="1" x:Name="TextBoxRefCornerPointY2" FormatString="F5" Increment="0.01" Value="{Binding RefCornerPointY2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding RefCornerPointY2}"/>                
-                <xctk:DecimalUpDown Grid.Row="31" Grid.Column="1" x:Name="TextBoxBirateralKernel" FormatString="N0" Increment="1" Minimum="0" Value="{Binding BirateralKernel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding BirateralKernel}"/>
-                <xctk:DecimalUpDown Grid.Row="32" Grid.Column="1" x:Name="TextBoxSigmaSpace" FormatString="F5" Increment="0.05" Value="{Binding SigmaSpace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding SigmaSpace}"/>
-                <xctk:DecimalUpDown Grid.Row="33" Grid.Column="1" x:Name="TextBoxSigmaColer" FormatString="N0" Increment="1" Minimum="0" Value="{Binding SigmaColer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding SigmaColer}"/>
-                <xctk:DecimalUpDown Grid.Row="34" Grid.Column="1" x:Name="TextBoxSearchLength"  FormatString="N0" Increment="1" Minimum="0" Value="{Binding SearchLength,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding SearchLength}"/>
-                <xctk:DecimalUpDown Grid.Row="35" Grid.Column="1" x:Name="TextBoxSearchLine" FormatString="N0" Increment="1" Minimum="0" Value="{Binding SearchLine,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding SearchLine}"/>
-                <xctk:DecimalUpDown Grid.Row="36" Grid.Column="1" x:Name="TextBoxChessCrossWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding ChessCrossWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding ChessCrossWidth}"/>
-                <xctk:DecimalUpDown Grid.Row="37" Grid.Column="1" x:Name="TextBoxChessCrossHeigth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding ChessCrossHeigth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding ChessCrossHeigth}"/>
-                <xctk:DecimalUpDown Grid.Row="38" Grid.Column="1" x:Name="TextBoxChessSquareSize" FormatString="N0" Increment="1" Minimum="0" Value="{Binding ChessSquareSize,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding ChessSquareSize}"/>
-                <xctk:DecimalUpDown Grid.Row="39" Grid.Column="1" x:Name="TextBoxOffsetX" FormatString="F5" Increment="0.01" Value="{Binding OffsetX,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OffsetX}"/>
-                <xctk:DecimalUpDown Grid.Row="40" Grid.Column="1" x:Name="TextBoxOffsetY" FormatString="F5" Increment="0.01" Value="{Binding OffsetY,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OffsetY}"/>                
+                <xctk:DecimalUpDown Grid.Row="31" Grid.Column="1" x:Name="TextBoxRefCornerPointY2" FormatString="F5" Increment="0.01" Value="{Binding RefCornerPointY2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding RefCornerPointY2}"/>                
+                <xctk:DecimalUpDown Grid.Row="32" Grid.Column="1" x:Name="TextBoxBirateralKernel" FormatString="N0" Increment="1" Minimum="0" Value="{Binding BirateralKernel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding BirateralKernel}"/>
+                <xctk:DecimalUpDown Grid.Row="33" Grid.Column="1" x:Name="TextBoxSigmaSpace" FormatString="F5" Increment="0.05" Value="{Binding SigmaSpace,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding SigmaSpace}"/>
+                <xctk:DecimalUpDown Grid.Row="34" Grid.Column="1" x:Name="TextBoxSigmaColer" FormatString="N0" Increment="1" Minimum="0" Value="{Binding SigmaColer,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding SigmaColer}"/>
+                <xctk:DecimalUpDown Grid.Row="35" Grid.Column="1" x:Name="TextBoxSearchLength"  FormatString="N0" Increment="1" Minimum="0" Value="{Binding SearchLength,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding SearchLength}"/>
+                <xctk:DecimalUpDown Grid.Row="36" Grid.Column="1" x:Name="TextBoxSearchLine" FormatString="N0" Increment="1" Minimum="0" Value="{Binding SearchLine,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding SearchLine}"/>
+                <xctk:DecimalUpDown Grid.Row="37" Grid.Column="1" x:Name="TextBoxChessCrossWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding ChessCrossWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding ChessCrossWidth}"/>
+                <xctk:DecimalUpDown Grid.Row="38" Grid.Column="1" x:Name="TextBoxChessCrossHeigth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding ChessCrossHeigth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding ChessCrossHeigth}"/>
+                <xctk:DecimalUpDown Grid.Row="39" Grid.Column="1" x:Name="TextBoxChessSquareSize" FormatString="N0" Increment="1" Minimum="0" Value="{Binding ChessSquareSize,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding ChessSquareSize}"/>
+                <xctk:DecimalUpDown Grid.Row="40" Grid.Column="1" x:Name="TextBoxOffsetX" FormatString="F5" Increment="0.01" Value="{Binding OffsetX,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OffsetX}"/>
+                <xctk:DecimalUpDown Grid.Row="41" Grid.Column="1" x:Name="TextBoxOffsetY" FormatString="F5" Increment="0.01" Value="{Binding OffsetY,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OffsetY}"/>                
                 
                 <!-- 単位系の表示 -->
                 <TextBlock Grid.Row="1" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
@@ -212,6 +213,7 @@
                 <TextBlock Grid.Row="38" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
                 <TextBlock Grid.Row="39" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                
                 <TextBlock Grid.Row="40" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                
+                <TextBlock Grid.Row="41" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                                
             </Grid>           
         </DockPanel>        
     </Grid>

@@ -20,6 +20,7 @@ namespace std_Fujita
     /// </summary>
     public partial class CamParams : UserControl
     {
+        /// <summary> コンストラクタ </summary>
         public CamParams()
         {
             InitializeComponent();
