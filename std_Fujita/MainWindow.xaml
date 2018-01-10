@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:std_Fujita"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="540" Width="960"
+        Title="MainWindow" Height="1100" Width="1440"
         Loaded="MainWindow_OnLoaded">
+
     <Window.Resources>
         <!--ボタン用スタイル-->
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
@@ -43,6 +44,44 @@
     </Window.Resources>
     
     <Grid>
+        <Grid>
+            <!--3行2列のグリッド-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1* "/>
+                <RowDefinition Height="0.9*" />
+                <RowDefinition Height="0.2* "/>                
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*" />
+                <ColumnDefinition Width="0.4*" />                
+            </Grid.ColumnDefinitions>
+            
+            <!--グリッドの色設定-->
+            <Border Grid.Row="0" Grid.Column="0" Background="CornflowerBlue"/>
+            <Border Grid.Row="1" Grid.Column="0" Background="AliceBlue"/>
+            <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Background="WhiteSmoke" />            
+            
+            <!--カメラ表示部設定-->
+            <Image x:Name="ImageView" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
+            <local:CamParams Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" x:Name="CamParams"/>
+            
+            <!--アイテム配置-->
+            <DockPanel Dock="Left" Grid.Row="0" Grid.Column="0">
+                <Button x:Name="Button_Capture" Style="{StaticResource ButtonStyle}" Content="カメラ撮像" Click="Button_CamCapture_Click"  Height="40"/>
+                <TextBlock Text=" 撮影位置番号 " Style="{StaticResource TextBlockStyle}" />
+                <xcdg:DecimalUpDown x:Name="Decimal_UpDownCam" Style="{StaticResource DecimalStyle}" Value="1" Increment="1" Minimum="0" />
+                <CheckBox x:Name="CheckBox_CamUse" Content="カメラ不使用" Style="{StaticResource CheckBoxStyle}"  />                            
+                <Button x:Name="Button_SaveCamera1Bmp" Style="{StaticResource ButtonStyle}" Content="カメラ画像保存" Click="Button_SaveCamera_Click" Margin="2" Height="40"  />
+                <Button x:Name="Button_SaveXml1" Style="{StaticResource ButtonStyle}" Content="カメラ設定保存" Click="Button_SaveXml_Click" Margin="2" Height="40"  />
+                <Button x:Name="Button_SaveXml1Copy" Style="{StaticResource ButtonStyle}" Content="カメラ設定読込" Click="Button_LoadXml_Click" Margin="2" Height="40"  />
+            </DockPanel>
+            
+            <!--測定結果表示-->
+            <RichTextBox x:Name ="RichTextBox_Result" Grid.Row="2" Grid.Column="0" />
+            
+        </Grid>
+        
+
         
     </Grid>
 </Window>

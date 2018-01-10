@@ -425,13 +425,13 @@ namespace std_Fujita
 	    }
 
 		/// <summary> 一枚目貼り付け時の直線検出用 X</summary>
-        private double point1X = 0;
+        private int point1X = 0;
 
 		/// <summary> 一枚目貼り付け時の直線検出用 X</summary>
         public static string Point1XStr { set; get; } = "";
 
 		/// <summary> 一枚目貼り付け時の直線検出用 X</summary>
-		public double Point1X
+		public int Point1X
         {
             set
             {
@@ -595,13 +595,13 @@ namespace std_Fujita
         }
 
 		/// <summary> バイラテラルフィルタ用の係数 </summary>
-        private int sigmaSpace = 0;
+        private double sigmaSpace = 0;
 
 		/// <summary> バイラテラルフィルタ用の係数 </summary>
         public static string SigmaSpaceStr { set; get; } = "";
 
 		/// <summary> バイラテラルフィルタ用の係数 </summary>
-        public int SigmaSpace
+        public double SigmaSpace
         {
             set
             {
@@ -612,13 +612,13 @@ namespace std_Fujita
         }
 
 		/// <summary> バイラテラルフィルタ用の係数 </summary>
-        private int sigmaColer = 0;
+        private double sigmaColer = 0;
 
 		/// <summary> バイラテラルフィルタ用の係数 </summary>
         public static string SigmaColerStr { set; get; } = "";
 
 		/// <summary> バイラテラルフィルタ用の係数 </summary>
-		public int SigmaColer
+		public double SigmaColer
         {
             set
             {
@@ -697,13 +697,13 @@ namespace std_Fujita
         }
 
         /// <summary> チェスボード関係の設定 </summary>
-        private int chessSquareSize = 0;
+        private double chessSquareSize = 0;
 
 		/// <summary> チェスボード関係の設定 </summary>
         public static string ChessSquareSizeStr { set; get; } = "";
 
 		/// <summary> チェスボード関係の設定 </summary>
-        public int ChessSquareSize
+        public double ChessSquareSize
         {
             set
             {
@@ -747,38 +747,55 @@ namespace std_Fujita
             get { return offsetY; }
         }
 
-		public static void ReadXmlToXaml(CamViewAreaDVModel data, string fileName)
-		{
-			var serializer = new XmlSerializer(typeof(SettingsClass));
-			using (var sr = new StreamReader(fileName, new UTF8Encoding(false)))
-			{
-				var ans = (SettingsClass) serializer.Deserialize(sr);
-				data.HasToUndistort = ans.Info.HasToUndistort;
-				data.OutputWidth = ans.Info.OutputWidth;
-				data.OutputHeight = ans.Info.OutputHeight;
-				data.Threshold1 = ans.Info.Threshold1;
-				data.Threshold2 = ans.Info.Threshold2;
-				data.RhoResolution = ans.Info.RhoResolution;
-				data.ThetaResolution = ans.Info.ThetaResolution;
-				data.Threshold = ans.Info.Threshold;
-				data.MinLineLength = ans.Info.MinLineLength;
-				data.MaxLineGap = ans.Info.MaxLineGap;
-				data.Torelance = ans.Info.Torelance;
-				data.LowerThetaLimit = ans.Info.LowerThetaLimit;
-				data.HasToMask = ans.Info.HasToMask;
-				data.X1 = ans.Info.X1;
-				data.Y1 = ans.Info.Y1;
-				data.RecWidth = ans.Info.RecWidth;
-				data.RecHeight = ans.Info.RecHeight;
-				data.KSizeX = ans.Info.KSizeX;
-				data.KSizeY = ans.Info.KSizeY;
-				data.SigmaX = ans.Info.SigmaX;
-				data.SigmaY = ans.Info.SigmaY;
-			    data.SlopeAngleResolution = ans.Info.SlopeAngleResolution;
-			    data.IntersectResolution = ans.Info.IntersectResolution;
-			    data.point1X = ans.Info.Point1X;
-			    data.point2X = ans.Info.Point1Y;
-			}
-		}
+        public static void ReadXmlToXaml(CamViewAreaDVModel data, string fileName)
+        {
+            var serializer = new XmlSerializer(typeof(SettingsClass));
+            using (var sr = new StreamReader(fileName, new UTF8Encoding(false)))
+            {
+                var ans = (SettingsClass) serializer.Deserialize(sr);
+                data.HasToUndistort = ans.Info.HasToUndistort;
+                data.OutputWidth = ans.Info.OutputWidth;
+                data.OutputHeight = ans.Info.OutputHeight;
+                data.Threshold1 = ans.Info.Threshold1;
+                data.Threshold2 = ans.Info.Threshold2;
+                data.RhoResolution = ans.Info.RhoResolution;
+                data.ThetaResolution = ans.Info.ThetaResolution;
+                data.Threshold = ans.Info.Threshold;
+                data.MinLineLength = ans.Info.MinLineLength;
+                data.MaxLineGap = ans.Info.MaxLineGap;
+                data.Torelance = ans.Info.Torelance;
+                data.LowerThetaLimit = ans.Info.LowerThetaLimit;
+                data.HasToMask = ans.Info.HasToMask;
+                data.X1 = ans.Info.X1;
+                data.Y1 = ans.Info.Y1;
+                data.RecWidth = ans.Info.RecWidth;
+                data.RecHeight = ans.Info.RecHeight;
+                data.KSizeX = ans.Info.KSizeX;
+                data.KSizeY = ans.Info.KSizeY;
+                data.SigmaX = ans.Info.SigmaX;
+                data.SigmaY = ans.Info.SigmaY;
+                data.SlopeAngleResolution = ans.Info.SlopeAngleResolution;
+                data.IntersectResolution = ans.Info.IntersectResolution;
+                data.Point1X = ans.Info.Point1X;
+                data.Point1Y = ans.Info.Point1Y;
+                data.Point2X = ans.Info.Point2X;
+                data.Point2Y = ans.Info.Point2Y;
+                data.RefCornerPointX = ans.Info.RefCornerPointX;
+                data.RefCornerPointY = ans.Info.RefCornerPointY;
+                data.RefCornerAngle = ans.Info.RefCornerAngle;
+                data.RefCornerPointX2 = ans.Info.RefCornerPointX2;
+                data.RefCornerPointY2 = ans.Info.RefCornerPointY2;
+                data.BirateralKernel = ans.Info.BirateralKernel;
+                data.SigmaSpace = ans.Info.SigmaSpace;
+                data.SigmaColer = ans.Info.SigmaColer;
+                data.SearchLength = ans.Info.SearchLength;
+                data.SearchLine = ans.Info.SearchLine;
+                data.ChessCrossWidth = ans.Info.ChessCrossWidth;
+                data.ChessCrossHeigth = ans.Info.ChessCrossHeigth;
+                data.ChessSquareSize = ans.Info.ChessSquareSize;
+                data.OffsetX = ans.Info.OffsetX;
+                data.OffsetY = ans.Info.OffsetY;
+            }
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace std_Fujita
         {
             InitializeComponent();
 
-            this.baseContainer.DataContext = new CamViewAreaDVModel();
+            this.BaseContainer.DataContext = new CamViewAreaDVModel();
         }
     }
 }

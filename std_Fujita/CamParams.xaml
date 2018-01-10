@@ -9,10 +9,9 @@
       d:DesignHeight="600" d:DesignWidth="300">
     
     <UserControl.Resources>
-        <local:CamParams x:Key="ViewModel" />
         
         <!--ラベル用スタイル-->
-        <Style x:Key="textBlockStyle" TargetType="{x:Type TextBlock}">
+        <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="VerticalAlignment" Value="Center"/> 
             <Setter Property="HorizontalAlignment" Value="Right"/> 
             <Setter Property="TextAlignment" Value="Right"/> 
@@ -22,14 +21,27 @@
         </Style>
         
         <!--チェックボックス用スタイル-->
-        <Style x:Key="checkBoxStyle" TargetType="{x:Type CheckBox}">
+        <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Padding" Value="2"/>
-        </Style>                   
+        </Style>              
+        
+        <!--ラベル用スタイル-->
+        <Style x:Key="TextBlockStyle_Unit" TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center"/> 
+            <Setter Property="HorizontalAlignment" Value="Left"/> 
+            <Setter Property="TextAlignment" Value="Right"/> 
+            <Setter Property="Padding" Value="2"/> 
+            <Setter Property="FontSize" Value="9"/> 
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/> 
+        </Style>
+        
+        <local:CamParams x:Key="ViewModel"/>
+        
     </UserControl.Resources>
     
-    <Grid x:Name="baseContainer" DataContext="{StaticResource ViewModel}">
+    <Grid x:Name="BaseContainer" DataContext="{StaticResource ViewModel}">
         <DockPanel>
             <Grid DockPanel.Dock="Top">
                 <Grid.RowDefinitions>
@@ -89,51 +101,51 @@
                 </Grid.RowDefinitions>
                 
                 <!--1列目：ラベルの表示-->
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="歪み補正" Style="{StaticResource LabelStyle}" ToolTip="{Binding HasToUndistortStr}"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="出力画像幅" Style="{StaticResource LabelStyle}" ToolTip="{Binding OutputWidthStr}"/>
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="出力画像高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding OutputHeightStr}"/>
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="閾値1" Style="{StaticResource LabelStyle}" ToolTip="{Binding Threshold1Str}"/>
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="閾値2" Style="{StaticResource LabelStyle}" ToolTip="{Binding Threshold2Str}"/>
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="半径の分解能" Style="{StaticResource LabelStyle}" ToolTip="{Binding RhoResolutionStr}"/>
-                <TextBlock Grid.Row="6" Grid.Column="0" Text="角度の分解能" Style="{StaticResource LabelStyle}" ToolTip="{Binding ThetaResolutionStr}"/>
-                <TextBlock Grid.Row="7" Grid.Column="0" Text="閾値" Style="{StaticResource LabelStyle}" ToolTip="{Binding ThresholdStr}"/>
-                <TextBlock Grid.Row="8" Grid.Column="0" Text="最小線分長さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding MinLineLengthStr}"/>
-                <TextBlock Grid.Row="9" Grid.Column="0" Text="最長ギャップ" Style="{StaticResource LabelStyle}" ToolTip="{Binding MaxLineGapStr}"/>
-                <TextBlock Grid.Row="10" Grid.Column="0" Text="交差トレランス" Style="{StaticResource LabelStyle}" ToolTip="{Binding TorelanceStr}"/>
-                <TextBlock Grid.Row="11" Grid.Column="0" Text="平行最小角度" Style="{StaticResource LabelStyle}" ToolTip="{Binding LowerThetaLimitStr}"/>
-                <TextBlock Grid.Row="12" Grid.Column="0" Text="領域選択" Style="{StaticResource LabelStyle}" ToolTip="{Binding HasToMaskStr}"/>
-                <TextBlock Grid.Row="13" Grid.Column="0" Text="領域X座標" Style="{StaticResource LabelStyle}" ToolTip="{Binding X1Str}"/>
-                <TextBlock Grid.Row="14" Grid.Column="0" Text="領域Y座標" Style="{StaticResource LabelStyle}" ToolTip="{Binding Y1Str}"/>
-                <TextBlock Grid.Row="15" Grid.Column="0" Text="領域幅" Style="{StaticResource LabelStyle}" ToolTip="{Binding RecWidthStr}"/>
-                <TextBlock Grid.Row="16" Grid.Column="0" Text="領域高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding RecHeightStr}"/>
-                <TextBlock Grid.Row="17" Grid.Column="0 " Text="フィルタ幅" Style="{StaticResource LabelStyle}" ToolTip="{Binding KSizeX}"/>
-                <TextBlock Grid.Row="18" Grid.Column="0" Text="フィルタ高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding KSizeY}"/>
-                <TextBlock Grid.Row="19" Grid.Column="0" Text="水平シグマ" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaX}"/>
-                <TextBlock Grid.Row="20" Grid.Column="0" Text="垂直シグマ" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaY}"/>
-                <TextBlock Grid.Row="21" Grid.Column="0" Text="角度　閾値" Style="{StaticResource LabelStyle}" ToolTip="{Binding SlopeAngleResolution}"/>
-                <TextBlock Grid.Row="22" Grid.Column="0" Text="Ｙ切片　閾値" Style="{StaticResource LabelStyle}" ToolTip="{Binding IntersectResolution}"/>
-                <TextBlock Grid.Row="23" Grid.Column="0" Text="直線検出用　Ｘ1" Style="{StaticResource LabelStyle}" ToolTip="{Binding Point1X}"/>
-                <TextBlock Grid.Row="24" Grid.Column="0" Text="直線検出用　Ｙ1" Style="{StaticResource LabelStyle}" ToolTip="{Binding Point1Y}"/>
-                <TextBlock Grid.Row="25" Grid.Column="0" Text="直線検出用　Ｘ2" Style="{StaticResource LabelStyle}" ToolTip="{Binding Point2X}"/>
-                <TextBlock Grid.Row="26" Grid.Column="0" Text="直線検出用　Ｙ2" Style="{StaticResource LabelStyle}" ToolTip="{Binding Point2Y}"/>
-                <TextBlock Grid.Row="27" Grid.Column="0" Text="Reference Point X1" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerPointX}"/>
-                <TextBlock Grid.Row="28" Grid.Column="0" Text="Reference Point Y1" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerPointY}"/>
-                <TextBlock Grid.Row="29" Grid.Column="0" Text="Reference 角度" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerAngle}"/>
-                <TextBlock Grid.Row="30" Grid.Column="0" Text="Reference Point X2" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerPointX2}"/>
-                <TextBlock Grid.Row="31" Grid.Column="0" Text="Reference Point Y2" Style="{StaticResource LabelStyle}" ToolTip="{Binding RefCornerPointY2}"/>
-                <TextBlock Grid.Row="32" Grid.Column="0" Text="Bilateral filter 1" Style="{StaticResource LabelStyle}" ToolTip="{Binding BirateralKernel}"/>
-                <TextBlock Grid.Row="33" Grid.Column="0" Text="Bilateral filter 2" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaSpace}"/>
-                <TextBlock Grid.Row="34" Grid.Column="0" Text="Bilateral filter 3" Style="{StaticResource LabelStyle}" ToolTip="{Binding SigmaColer}"/>
-                <TextBlock Grid.Row="35" Grid.Column="0" Text="コーナー検索 1(size)" Style="{StaticResource LabelStyle}" ToolTip="{Binding SearchLength}"/>
-                <TextBlock Grid.Row="36" Grid.Column="0" Text="コーナー検索 2(size)" Style="{StaticResource LabelStyle}" ToolTip="{Binding SearchLine}"/>
-                <TextBlock Grid.Row="37" Grid.Column="0 " Text="Chess board 1" Style="{StaticResource LabelStyle}" ToolTip="{Binding ChessCrossWidth}"/>
-                <TextBlock Grid.Row="38" Grid.Column="0" Text="Chess board 2" Style="{StaticResource LabelStyle}" ToolTip="{Binding ChessCrossHeigth}"/>
-                <TextBlock Grid.Row="39" Grid.Column="0" Text="Chess board 3" Style="{StaticResource LabelStyle}" ToolTip="{Binding ChessSquareSize}"/>
-                <TextBlock Grid.Row="40" Grid.Column="0" Text="Chess board 4" Style="{StaticResource LabelStyle}" ToolTip="{Binding OffsetX}"/>
-                <TextBlock Grid.Row="41" Grid.Column="0" Text="Chess board 5" Style="{StaticResource LabelStyle}" ToolTip="{Binding OffsetY}"/>                
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="歪み補正" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding HasToUndistortStr}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="出力画像幅" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding OutputWidthStr}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="出力画像高さ" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding OutputHeightStr}"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="閾値1" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding Threshold1Str}"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="閾値2" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding Threshold2Str}"/>
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="半径の分解能" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding RhoResolutionStr}"/>
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="角度の分解能" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding ThetaResolutionStr}"/>
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="閾値" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding ThresholdStr}"/>
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="最小線分長さ" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding MinLineLengthStr}"/>
+                <TextBlock Grid.Row="9" Grid.Column="0" Text="最長ギャップ" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding MaxLineGapStr}"/>
+                <TextBlock Grid.Row="10" Grid.Column="0" Text="交差トレランス" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding TorelanceStr}"/>
+                <TextBlock Grid.Row="11" Grid.Column="0" Text="平行最小角度" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding LowerThetaLimitStr}"/>
+                <TextBlock Grid.Row="12" Grid.Column="0" Text="領域選択" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding HasToMaskStr}"/>
+                <TextBlock Grid.Row="13" Grid.Column="0" Text="領域X座標" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding X1Str}"/>
+                <TextBlock Grid.Row="14" Grid.Column="0" Text="領域Y座標" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding Y1Str}"/>
+                <TextBlock Grid.Row="15" Grid.Column="0" Text="領域幅" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding RecWidthStr}"/>
+                <TextBlock Grid.Row="16" Grid.Column="0" Text="領域高さ" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding RecHeightStr}"/>
+                <TextBlock Grid.Row="17" Grid.Column="0 " Text="フィルタ幅" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding KSizeX}"/>
+                <TextBlock Grid.Row="18" Grid.Column="0" Text="フィルタ高さ" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding KSizeY}"/>
+                <TextBlock Grid.Row="19" Grid.Column="0" Text="水平シグマ" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding SigmaX}"/>
+                <TextBlock Grid.Row="20" Grid.Column="0" Text="垂直シグマ" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding SigmaY}"/>
+                <TextBlock Grid.Row="21" Grid.Column="0" Text="角度　閾値" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding SlopeAngleResolution}"/>
+                <TextBlock Grid.Row="22" Grid.Column="0" Text="Ｙ切片　閾値" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding IntersectResolution}"/>
+                <TextBlock Grid.Row="23" Grid.Column="0" Text="直線検出用　Ｘ1" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding Point1X}"/>
+                <TextBlock Grid.Row="24" Grid.Column="0" Text="直線検出用　Ｙ1" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding Point1Y}"/>
+                <TextBlock Grid.Row="25" Grid.Column="0" Text="直線検出用　Ｘ2" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding Point2X}"/>
+                <TextBlock Grid.Row="26" Grid.Column="0" Text="直線検出用　Ｙ2" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding Point2Y}"/>
+                <TextBlock Grid.Row="27" Grid.Column="0" Text="Reference Point X1" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding RefCornerPointX}"/>
+                <TextBlock Grid.Row="28" Grid.Column="0" Text="Reference Point Y1" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding RefCornerPointY}"/>
+                <TextBlock Grid.Row="29" Grid.Column="0" Text="Reference 角度" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding RefCornerAngle}"/>
+                <TextBlock Grid.Row="30" Grid.Column="0" Text="Reference Point X2" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding RefCornerPointX2}"/>
+                <TextBlock Grid.Row="31" Grid.Column="0" Text="Reference Point Y2" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding RefCornerPointY2}"/>
+                <TextBlock Grid.Row="32" Grid.Column="0" Text="Bilateral filter 1" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding BirateralKernel}"/>
+                <TextBlock Grid.Row="33" Grid.Column="0" Text="Bilateral filter 2" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding SigmaSpace}"/>
+                <TextBlock Grid.Row="34" Grid.Column="0" Text="Bilateral filter 3" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding SigmaColer}"/>
+                <TextBlock Grid.Row="35" Grid.Column="0" Text="コーナー検索 1(size)" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding SearchLength}"/>
+                <TextBlock Grid.Row="36" Grid.Column="0" Text="コーナー検索 2(size)" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding SearchLine}"/>
+                <TextBlock Grid.Row="37" Grid.Column="0 " Text="Chess board 1" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding ChessCrossWidth}"/>
+                <TextBlock Grid.Row="38" Grid.Column="0" Text="Chess board 2" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding ChessCrossHeigth}"/>
+                <TextBlock Grid.Row="39" Grid.Column="0" Text="Chess board 3" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding ChessSquareSize}"/>
+                <TextBlock Grid.Row="40" Grid.Column="0" Text="Chess board 4" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding OffsetX}"/>
+                <TextBlock Grid.Row="41" Grid.Column="0" Text="Chess board 5" Style="{StaticResource TextBlockStyle}" ToolTip="{Binding OffsetY}"/>                
                 
                 <!--2列目：数値入力部の表示-->
-                <CheckBox Grid.Row="0" Grid.Column="1" x:Name="CheckBox1" IsChecked="{Binding HasToUndistort,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource checkBoxStyle}" ToolTip="{Binding HasToUndistortStr}"/>
+                <CheckBox Grid.Row="0" Grid.Column="1" x:Name="CheckBox1" IsChecked="{Binding HasToUndistort,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" ToolTip="{Binding HasToUndistortStr}"/>
                 <xctk:DecimalUpDown Grid.Row="1" Grid.Column="1" x:Name="TextBoxOutputWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding HasToUndistortStr}"/>
                 <xctk:DecimalUpDown Grid.Row="2" Grid.Column="1" x:Name="TextBoxOutputHeight" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OutputHeightStr}"/>
                 <xctk:DecimalUpDown Grid.Row="3" Grid.Column="1" x:Name="TextBoxThreshold1" FormatString="F5" Increment="0.01" Value="{Binding Threshold1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Threshold1Str}"/>
@@ -145,7 +157,7 @@
                 <xctk:DecimalUpDown Grid.Row="9" Grid.Column="1" x:Name="TextBoxMaxLineGap" FormatString="F5" Increment="0.01" Value="{Binding MaxLineGap,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding MaxLineGapStr}"/>
                 <xctk:DecimalUpDown Grid.Row="10" Grid.Column="1" x:Name="TextBoxTorelance" FormatString="N0" Increment="1" Minimum="0" Value="{Binding Torelance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding TorelanceStr}"/>
                 <xctk:DecimalUpDown Grid.Row="11" Grid.Column="1" x:Name="TextBoxLowerThetaLimit" FormatString="F5" Increment="0.05" Value="{Binding LowerThetaLimit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding LowerThetaLimitStr}"/>
-                <CheckBox  Grid.Row="12" Grid.Column="1" x:Name="TextBoxHasToMask"  Style="{StaticResource checkBoxStyle}" ToolTip="{Binding HasToMaskStr}"></CheckBox>
+                <CheckBox  Grid.Row="12" Grid.Column="1" x:Name="TextBoxHasToMask"  Style="{StaticResource CheckBoxStyle}" ToolTip="{Binding HasToMaskStr}"></CheckBox>
                 <xctk:DecimalUpDown Grid.Row="13" Grid.Column="1" x:Name="TextBoxX1" FormatString="N0" Increment="1" Minimum="0" Value="{Binding X1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding X1Str}"/>
                 <xctk:DecimalUpDown Grid.Row="14" Grid.Column="1" x:Name="TextBoxY1"  FormatString="N0" Increment="1" Minimum="0" Value="{Binding Y1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Y1Str}"/>
                 <xctk:DecimalUpDown Grid.Row="15" Grid.Column="1" x:Name="TextBoxRecWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding RecWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding RecWidthStr}"/>
@@ -177,43 +189,43 @@
                 <xctk:DecimalUpDown Grid.Row="41" Grid.Column="1" x:Name="TextBoxOffsetY" FormatString="F5" Increment="0.01" Value="{Binding OffsetY,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OffsetY}"/>                
                 
                 <!-- 単位系の表示 -->
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="5" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="6" Grid.Column="2" Text="[rad]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="8" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="9" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="10" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="11" Grid.Column="2" Text="[rad]" Style="{StaticResource LabelStyle}"></TextBlock>                
-                <TextBlock Grid.Row="13" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                
-                <TextBlock Grid.Row="14" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="15" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                
-                <TextBlock Grid.Row="16" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="17" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                
-                <TextBlock Grid.Row="18" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="19" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                
-                <TextBlock Grid.Row="20" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                
-                <TextBlock Grid.Row="21" Grid.Column="2" Text="[rad]" Style="{StaticResource LabelStyle}"></TextBlock>                
-                <TextBlock Grid.Row="22" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                
-                <TextBlock Grid.Row="23" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                
-                <TextBlock Grid.Row="24" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="25" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                
-                <TextBlock Grid.Row="26" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="27" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                
-                <TextBlock Grid.Row="28" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="29" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                
-                <TextBlock Grid.Row="30" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                 
-                <TextBlock Grid.Row="31" Grid.Column="2" Text="[rad]" Style="{StaticResource LabelStyle}"></TextBlock>                
-                <TextBlock Grid.Row="32" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                
-                <TextBlock Grid.Row="33" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                
-                <TextBlock Grid.Row="34" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="35" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                
-                <TextBlock Grid.Row="36" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="37" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                
-                <TextBlock Grid.Row="38" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
-                <TextBlock Grid.Row="39" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                
-                <TextBlock Grid.Row="40" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                
-                <TextBlock Grid.Row="41" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>                                                                
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="8" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="9" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="10" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="11" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
+                <TextBlock Grid.Row="13" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                
+                <TextBlock Grid.Row="14" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="15" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
+                <TextBlock Grid.Row="16" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="17" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
+                <TextBlock Grid.Row="18" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="19" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
+                <TextBlock Grid.Row="20" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
+                <TextBlock Grid.Row="21" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
+                <TextBlock Grid.Row="22" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
+                <TextBlock Grid.Row="23" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                
+                <TextBlock Grid.Row="24" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="25" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
+                <TextBlock Grid.Row="26" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="27" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
+                <TextBlock Grid.Row="28" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="29" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
+                <TextBlock Grid.Row="30" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                 
+                <TextBlock Grid.Row="31" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
+                <TextBlock Grid.Row="32" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
+                <TextBlock Grid.Row="33" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                
+                <TextBlock Grid.Row="34" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="35" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
+                <TextBlock Grid.Row="36" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="37" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
+                <TextBlock Grid.Row="38" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
+                <TextBlock Grid.Row="39" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
+                <TextBlock Grid.Row="40" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
+                <TextBlock Grid.Row="41" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                                
             </Grid>           
         </DockPanel>        
     </Grid>
