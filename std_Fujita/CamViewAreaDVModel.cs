@@ -30,9 +30,11 @@ namespace std_Fujita
             return error;
         }
 
+        public bool HasErrors { get; }
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
         private Dictionary<string, IEnumerable> errors = new Dictionary<string, IEnumerable>();
-
-
+        
 		/// <summary> 歪み補正をするか否か bool </summary>
         private bool hasToUndistort;
 

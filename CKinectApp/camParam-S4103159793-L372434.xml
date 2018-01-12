@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<SensorSN>"4103159793"</SensorSN>
+<LenseSN>"372434"</LenseSN>
+<ReprojectionError>6.3219497712338069e-01</ReprojectionError>
+<numOfCheckerPatterns>8</numOfCheckerPatterns>
+<extrinsic type_id="opencv-matrix">
+  <rows>4</rows>
+  <cols>4</cols>
+  <dt>d</dt>
+  <data>
+    9.9924542558624352e-01 -8.0183721191631422e-03
+    -3.8003751834863819e-02 -1.2124549939917168e+02
+    3.1204156515679773e-02 7.4835205500103696e-01 6.6256735687163903e-01
+    -9.8042188570084335e+01 2.3127474161962602e-02
+    -6.6325327551719160e-01 7.4803757422645833e-01
+    5.9146312890024910e+02 0. 0. 0. 1.</data></extrinsic>
+<intrinsic type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>d</dt>
+  <data>
+    1.1403029340155770e+03 0. 6.1570601158023953e+02 0.
+    1.1437299242670542e+03 4.9845659669375408e+02 0. 0. 1.</data></intrinsic>
+<distortion type_id="opencv-matrix">
+  <rows>1</rows>
+  <cols>5</cols>
+  <dt>d</dt>
+  <data>
+    -1.6317880238877702e-01 -2.0087418231274308e-02
+    -1.6128727302237723e-03 -4.7954250099982914e-04
+    7.1546044955645027e-01</data></distortion>
+</opencv_storage>
