@@ -54,7 +54,7 @@ namespace std_Fujita
             Trace.WriteLine($"スタートアップパス={startupPath}", "Debug");
 
             //設定ファイル読み込み関係
-            var settingFname = startupPath + settingPath + @"/" + "tcpini.xml";
+            var settingFname = startupPath + settingPath + @"\" + "tcpini.xml";
             if (!File.Exists(settingFname))
             {
                 //設定ファイルが存在しないので、標準的な設定ファイルを作成して終了
@@ -90,8 +90,7 @@ namespace std_Fujita
             NamedPipeClientStream namedPipe = null;
             try
             {
-                namedPipe = new NamedPipeClientStream(settingTcp.ServerName, settingTcp.PipeNmae,
-                    settingTcp.PipeDirection);
+                namedPipe = new NamedPipeClientStream(settingTcp.ServerName, settingTcp.PipeNmae, settingTcp.PipeDirection);
             }
             catch (ArgumentNullException ane)
             {
@@ -103,9 +102,15 @@ namespace std_Fujita
                 Trace.WriteLine($"パイプ設定中にエラーが発生.\nMessage={ae.Message}\nStack={ae.StackTrace}", "Error");
             }
 
+            //var namedPipe = new NamedPipeClientStream(@".", "TestPipe1", PipeDirection.InOut);
+
             //タイムアウト設定
-            namedPipe.WriteTimeout = settingTcp.SendTimeout;
-            namedPipe.ReadTimeout = settingTcp.RecvTimeout;
+            if (namedPipe.CanTimeout)
+            {
+                namedPipe.WriteTimeout = settingTcp.SendTimeout;
+                namedPipe.ReadTimeout = settingTcp.RecvTimeout;
+            }
+
 
             //カメラを使用して画像解析を行うかを確認
             var checkUseIdsCamera =

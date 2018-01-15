@@ -12,12 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace std_Fujita
 {
-    /// <summary>
-    /// Page1.xaml の相互作用ロジック
-    /// </summary>
+    /// <summary>  Page1.xaml の相互作用ロジック  </summary>
     public partial class CamParams : UserControl
     {
         /// <summary> コンストラクタ </summary>

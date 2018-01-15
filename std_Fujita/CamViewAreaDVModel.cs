@@ -749,6 +749,9 @@ namespace std_Fujita
             get { return offsetY; }
         }
 
+        /// <summary> XMLファイルを読み込んで設定更新  </summary>
+        /// <param name="data"></param>
+        /// <param name="fileName"></param>
         public static void ReadXmlToXaml(CamViewAreaDVModel data, string fileName)
         {
             var serializer = new XmlSerializer(typeof(SettingsClass));

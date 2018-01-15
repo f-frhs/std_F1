@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:std_Fujita"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="300">
+      d:DesignHeight="600" d:DesignWidth="250">
     
     <UserControl.Resources>
         
@@ -23,21 +23,19 @@
         <!--チェックボックス用スタイル-->
         <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Padding" Value="2"/>
         </Style>              
         
         <!--ラベル用スタイル-->
-        <Style x:Key="TextBlockStyle_Unit" TargetType="{x:Type TextBlock}">
+        <Style x:Key="TextBlockStyleUnit" TargetType="{x:Type TextBlock}">
             <Setter Property="VerticalAlignment" Value="Center"/> 
             <Setter Property="HorizontalAlignment" Value="Left"/> 
             <Setter Property="TextAlignment" Value="Right"/> 
             <Setter Property="Padding" Value="2"/> 
             <Setter Property="FontSize" Value="9"/> 
-            <Setter Property="TextWrapping" Value="WrapWithOverflow"/> 
         </Style>
         
-        <local:CamParams x:Key="ViewModel"/>
+        <local:CamViewAreaDVModel x:Key="ViewModel"/>
         
     </UserControl.Resources>
     
@@ -47,13 +45,12 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.0*" />
                 </Grid.RowDefinitions>
-            </Grid>
             
             <Grid DockPanel.Dock="Top" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                      <ColumnDefinition />
-                     <ColumnDefinition Width="0.5*"/>
+                     <ColumnDefinition Width="0.3*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -146,7 +143,7 @@
                 
                 <!--2列目：数値入力部の表示-->
                 <CheckBox Grid.Row="0" Grid.Column="1" x:Name="CheckBox1" IsChecked="{Binding HasToUndistort,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" ToolTip="{Binding HasToUndistortStr}"/>
-                <xctk:DecimalUpDown Grid.Row="1" Grid.Column="1" x:Name="TextBoxOutputWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding HasToUndistortStr}"/>
+                <xctk:DecimalUpDown Grid.Row="1" Grid.Column="1" x:Name="TextBoxOutputWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding OutputWidthStr}"/>
                 <xctk:DecimalUpDown Grid.Row="2" Grid.Column="1" x:Name="TextBoxOutputHeight" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OutputHeightStr}"/>
                 <xctk:DecimalUpDown Grid.Row="3" Grid.Column="1" x:Name="TextBoxThreshold1" FormatString="F5" Increment="0.01" Value="{Binding Threshold1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Threshold1Str}"/>
                 <xctk:DecimalUpDown Grid.Row="4" Grid.Column="1" x:Name="TextBoxThreshold2" FormatString="F5" Increment="0.01" Value="{Binding Threshold2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Threshold2Str}"/>
@@ -189,43 +186,44 @@
                 <xctk:DecimalUpDown Grid.Row="41" Grid.Column="1" x:Name="TextBoxOffsetY" FormatString="F5" Increment="0.01" Value="{Binding OffsetY,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OffsetY}"/>                
                 
                 <!-- 単位系の表示 -->
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="5" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="6" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="8" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="9" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="10" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="11" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
-                <TextBlock Grid.Row="13" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                
-                <TextBlock Grid.Row="14" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="15" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
-                <TextBlock Grid.Row="16" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="17" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
-                <TextBlock Grid.Row="18" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="19" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
-                <TextBlock Grid.Row="20" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
-                <TextBlock Grid.Row="21" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
-                <TextBlock Grid.Row="22" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
-                <TextBlock Grid.Row="23" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                
-                <TextBlock Grid.Row="24" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="25" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
-                <TextBlock Grid.Row="26" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="27" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
-                <TextBlock Grid.Row="28" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="29" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
-                <TextBlock Grid.Row="30" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                 
-                <TextBlock Grid.Row="31" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
-                <TextBlock Grid.Row="32" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
-                <TextBlock Grid.Row="33" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                
-                <TextBlock Grid.Row="34" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="35" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                
-                <TextBlock Grid.Row="36" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="37" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
-                <TextBlock Grid.Row="38" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>
-                <TextBlock Grid.Row="39" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
-                <TextBlock Grid.Row="40" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                
-                <TextBlock Grid.Row="41" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyle_Unit}"></TextBlock>                                                                
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="6" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="8" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="9" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="10" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="11" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                
+                <TextBlock Grid.Row="13" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                
+                <TextBlock Grid.Row="14" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="15" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                
+                <TextBlock Grid.Row="16" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="17" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                                
+                <TextBlock Grid.Row="18" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="19" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                                
+                <TextBlock Grid.Row="20" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                
+                <TextBlock Grid.Row="21" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                
+                <TextBlock Grid.Row="22" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                
+                <TextBlock Grid.Row="23" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                
+                <TextBlock Grid.Row="24" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="25" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                
+                <TextBlock Grid.Row="26" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="27" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                                
+                <TextBlock Grid.Row="28" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="29" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                                
+                <TextBlock Grid.Row="30" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                 
+                <TextBlock Grid.Row="31" Grid.Column="2" Text="[rad]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                
+                <TextBlock Grid.Row="32" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                
+                <TextBlock Grid.Row="33" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                
+                <TextBlock Grid.Row="34" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="35" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                
+                <TextBlock Grid.Row="36" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="37" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                                
+                <TextBlock Grid.Row="38" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>
+                <TextBlock Grid.Row="39" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                                
+                <TextBlock Grid.Row="40" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>                                                
+                <TextBlock Grid.Row="41" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>              
+                </Grid>
             </Grid>           
         </DockPanel>        
     </Grid>
