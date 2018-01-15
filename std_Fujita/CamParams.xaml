@@ -144,7 +144,7 @@
                 <!--2列目：数値入力部の表示-->
                 <CheckBox Grid.Row="0" Grid.Column="1" x:Name="CheckBox1" IsChecked="{Binding HasToUndistort,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource CheckBoxStyle}" ToolTip="{Binding HasToUndistortStr}"/>
                 <xctk:DecimalUpDown Grid.Row="1" Grid.Column="1" x:Name="TextBoxOutputWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding OutputWidthStr}"/>
-                <xctk:DecimalUpDown Grid.Row="2" Grid.Column="1" x:Name="TextBoxOutputHeight" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OutputHeightStr}"/>
+                <!--<xctk:DecimalUpDown Grid.Row="2" Grid.Column="1" x:Name="TextBoxOutputHeight" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OutputHeightStr}"/>
                 <xctk:DecimalUpDown Grid.Row="3" Grid.Column="1" x:Name="TextBoxThreshold1" FormatString="F5" Increment="0.01" Value="{Binding Threshold1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Threshold1Str}"/>
                 <xctk:DecimalUpDown Grid.Row="4" Grid.Column="1" x:Name="TextBoxThreshold2" FormatString="F5" Increment="0.01" Value="{Binding Threshold2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Threshold2Str}"/>
                 <xctk:DecimalUpDown Grid.Row="5" Grid.Column="1" x:Name="TextBoxRhoResolution" FormatString="F5" Increment="0.01" Value="{Binding RhoResolution, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding RhoResolutionStr}"/>
@@ -154,7 +154,7 @@
                 <xctk:DecimalUpDown Grid.Row="9" Grid.Column="1" x:Name="TextBoxMaxLineGap" FormatString="F5" Increment="0.01" Value="{Binding MaxLineGap,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding MaxLineGapStr}"/>
                 <xctk:DecimalUpDown Grid.Row="10" Grid.Column="1" x:Name="TextBoxTorelance" FormatString="N0" Increment="1" Minimum="0" Value="{Binding Torelance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding TorelanceStr}"/>
                 <xctk:DecimalUpDown Grid.Row="11" Grid.Column="1" x:Name="TextBoxLowerThetaLimit" FormatString="F5" Increment="0.05" Value="{Binding LowerThetaLimit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding LowerThetaLimitStr}"/>
-                <CheckBox  Grid.Row="12" Grid.Column="1" x:Name="TextBoxHasToMask"  Style="{StaticResource CheckBoxStyle}" ToolTip="{Binding HasToMaskStr}"></CheckBox>
+                <CheckBox  Grid.Row="12" Grid.Column="1" x:Name="TextBoxHasToMask"  Style="{StaticResource CheckBoxStyle}" ToolTip="{Binding HasToMaskStr}"/>
                 <xctk:DecimalUpDown Grid.Row="13" Grid.Column="1" x:Name="TextBoxX1" FormatString="N0" Increment="1" Minimum="0" Value="{Binding X1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding X1Str}"/>
                 <xctk:DecimalUpDown Grid.Row="14" Grid.Column="1" x:Name="TextBoxY1"  FormatString="N0" Increment="1" Minimum="0" Value="{Binding Y1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Y1Str}"/>
                 <xctk:DecimalUpDown Grid.Row="15" Grid.Column="1" x:Name="TextBoxRecWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding RecWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding RecWidthStr}"/>
@@ -183,7 +183,7 @@
                 <xctk:DecimalUpDown Grid.Row="38" Grid.Column="1" x:Name="TextBoxChessCrossHeigth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding ChessCrossHeigth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding ChessCrossHeigth}"/>
                 <xctk:DecimalUpDown Grid.Row="39" Grid.Column="1" x:Name="TextBoxChessSquareSize" FormatString="N0" Increment="1" Minimum="0" Value="{Binding ChessSquareSize,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding ChessSquareSize}"/>
                 <xctk:DecimalUpDown Grid.Row="40" Grid.Column="1" x:Name="TextBoxOffsetX" FormatString="F5" Increment="0.01" Value="{Binding OffsetX,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OffsetX}"/>
-                <xctk:DecimalUpDown Grid.Row="41" Grid.Column="1" x:Name="TextBoxOffsetY" FormatString="F5" Increment="0.01" Value="{Binding OffsetY,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OffsetY}"/>                
+                <xctk:DecimalUpDown Grid.Row="41" Grid.Column="1" x:Name="TextBoxOffsetY" FormatString="F5" Increment="0.01" Value="{Binding OffsetY,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OffsetY}"/>-->                
                 
                 <!-- 単位系の表示 -->
                 <TextBlock Grid.Row="1" Grid.Column="2" Text="[pixel]" Style="{StaticResource TextBlockStyleUnit}"></TextBlock>

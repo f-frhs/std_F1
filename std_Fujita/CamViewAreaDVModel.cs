@@ -17,24 +17,7 @@ namespace std_Fujita
     /// <summary> ViewMode用クラス </summary>
     [Serializable]
     public class CamViewAreaDVModel : ViewModelBase, INotifyDataErrorInfo
-    {
-        /// <summary> コンストラクタ </summary>
-        public CamViewAreaDVModel()
-        {
-        }
-
-        public IEnumerable GetErrors(string propertyName)
-        {
-            IEnumerable error = null;
-            this.errors.TryGetValue(propertyName, out error);
-            return error;
-        }
-
-        public bool HasErrors { get; }
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
-        private Dictionary<string, IEnumerable> errors = new Dictionary<string, IEnumerable>();
-        
+    {      
 		/// <summary> 歪み補正をするか否か bool </summary>
         private bool hasToUndistort;
 
@@ -748,6 +731,23 @@ namespace std_Fujita
             }
             get { return offsetY; }
         }
+
+        /// <summary> コンストラクタ </summary>
+        public CamViewAreaDVModel()
+        {
+        }
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            IEnumerable error = null;
+            this.errors.TryGetValue(propertyName, out error);
+            return error;
+        }
+
+        public bool HasErrors { get; }
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        private Dictionary<string, IEnumerable> errors = new Dictionary<string, IEnumerable>();
 
         /// <summary> XMLファイルを読み込んで設定更新  </summary>
         /// <param name="data"></param>
