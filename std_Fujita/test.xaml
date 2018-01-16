@@ -1,0 +1,158 @@
+﻿<Page x:Class="std_Fujita.test"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:std_Fujita"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"      
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="300"
+      Title="test">
+
+        <Page.Resources>
+
+        <!-- テキストラベル用の表示 -->
+        <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
+
+        <!-- チェックボックスのスタイル -->
+        <Style x:Key="checkBoxStyle" TargetType="{x:Type CheckBox}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+
+        <!-- テキストボックスのスタイル設定 -->
+        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <!-- グループボックスのタイトル文字スタイルを変更する -->
+        <Style x:Key="GroupStyle" TargetType="{x:Type GroupBox}">
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Border BorderThickness="2" BorderBrush="Black" Padding="5,2,5,2" CornerRadius="5">
+                            <TextBlock Text="{Binding}" FontWeight="Bold"/>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
+
+        <local:CamViewAreaDVModel x:Key="ViewModel"/>
+
+    </Page.Resources>
+    
+    <Grid x:Name="baseContainer" DataContext="{StaticResource ViewModel}">
+        <DockPanel>
+            <Grid DockPanel.Dock="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.0*"/>
+                </Grid.RowDefinitions>
+
+                <Grid DockPanel.Dock="Top" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- ラベルの表示 -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="歪み補正" Style="{StaticResource LabelStyle}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="出力画像幅" Style="{StaticResource LabelStyle}" ToolTip="{Binding OutputWidthStr}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="出力画像高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding OutputHeightStr}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="閾値1" Style="{StaticResource LabelStyle}" ToolTip="{Binding Threshold1Str}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="閾値2" Style="{StaticResource LabelStyle}" ToolTip="{Binding Threshold2Str}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="半径の分解能" Style="{StaticResource LabelStyle}" ToolTip="{Binding RhoResolutionStr}"/>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="角度の分解能" Style="{StaticResource LabelStyle}" ToolTip="{Binding ThetaResolutionStr}"/>
+                    <TextBlock Grid.Row="7" Grid.Column="0" Text="閾値" Style="{StaticResource LabelStyle}" ToolTip="{Binding ThresholdStr}"/>
+                    <TextBlock Grid.Row="8" Grid.Column="0" Text="最小線分長さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding MinLineLengthStr}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3" Text="最長ギャップ" Style="{StaticResource LabelStyle}" ToolTip="{Binding MaxLineGapStr}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="3" Text="交差トレランス" Style="{StaticResource LabelStyle}" ToolTip="{Binding TorelanceStr}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="3" Text="平行最小角度" Style="{StaticResource LabelStyle}" ToolTip="{Binding LowerThetaLimitStr}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="3" Text="領域選択" Style="{StaticResource LabelStyle}" ToolTip="{Binding HasToMaskStr}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="3" Text="領域X座標" Style="{StaticResource LabelStyle}" ToolTip="{Binding X1Str}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="3" Text="領域Y座標" Style="{StaticResource LabelStyle}" ToolTip="{Binding Y1Str}"/>
+                    <TextBlock Grid.Row="6" Grid.Column="3" Text="領域幅" Style="{StaticResource LabelStyle}" ToolTip="{Binding RecWidthStr}"/>
+                    <TextBlock Grid.Row="7" Grid.Column="3" Text="領域高さ" Style="{StaticResource LabelStyle}" ToolTip="{Binding RecHeightStr}"/>
+                    <TextBlock Grid.Row="8" Grid.Column="3 " Text="フィルタ幅" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock Grid.Row="9" Grid.Column="3" Text="フィルタ高さ" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock Grid.Row="10" Grid.Column="3" Text="水平シグマ" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock Grid.Row="11" Grid.Column="3" Text="垂直シグマ" Style="{StaticResource LabelStyle}"/>
+                        <!-- <TextBlock Grid.Row="8" Grid.Column="2" Text="hasToUndistro"></TextBlock> -->
+
+                     <!--<xctk:DecimalUpDown Grid.Row="0" Grid.Column="1" Value="100.0"></xctk:DecimalUpDown>--> 
+                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="CheckBox1" IsChecked="{Binding HasToUndistort,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource checkBoxStyle}" ToolTip="{Binding HasToUndistortStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="1" Grid.Column="1" x:Name="TextBoxOutputWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding HasToUndistortStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="2" Grid.Column="1" x:Name="TextBoxOutputHeight" FormatString="N0" Increment="1" Minimum="0" Value="{Binding OutputHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding OutputHeightStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="3" Grid.Column="1" x:Name="TextBoxThreshold1" FormatString="F5" Increment="0.01" Value="{Binding Threshold1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Threshold1Str}"/>
+                    <xctk:DecimalUpDown Grid.Row="4" Grid.Column="1" x:Name="TextBoxThreshold2" FormatString="F5" Increment="0.01" Value="{Binding Threshold2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Threshold2Str}"/>
+                    <xctk:DecimalUpDown Grid.Row="5" Grid.Column="1" x:Name="TextBoxRhoResolution" FormatString="F5" Increment="0.01" Value="{Binding RhoResolution, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding RhoResolutionStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="6" Grid.Column="1" x:Name="TextBoxThetaResolution" FormatString="F5" Increment="0.01" Value="{Binding ThetaResolution,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding ThetaResolutionStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="7" Grid.Column="1" x:Name="TextBoxThreshold" FormatString="N0" Increment="1" Minimum="0" Value="{Binding Threshold,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding ThresholdStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="8" Grid.Column="1" x:Name="TextBoxMinLineLength" FormatString="F5" Increment="0.1" Value="{Binding MinLineLength,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding MinLineLengthStr}"/>
+
+                    <xctk:DecimalUpDown Grid.Row="0" Grid.Column="4" x:Name="TextBoxMaxLineGap" FormatString="F5" Increment="0.01" Value="{Binding MaxLineGap,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding MaxLineGapStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="1" Grid.Column="4" x:Name="TextBoxTorelance" FormatString="N0" Increment="1" Minimum="0" Value="{Binding Torelance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding TorelanceStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="2" Grid.Column="4" x:Name="TextBoxLowerThetaLimit" FormatString="F5" Increment="0.05" Value="{Binding LowerThetaLimit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding LowerThetaLimitStr}"/>
+                    <CheckBox  Grid.Row="3" Grid.Column="4" x:Name="TextBoxHasToMask"  Style="{StaticResource checkBoxStyle}" ToolTip="{Binding HasToMaskStr}"></CheckBox>
+                    <xctk:DecimalUpDown Grid.Row="4" Grid.Column="4" x:Name="TextBoxX1" FormatString="N0" Increment="1" Minimum="0" Value="{Binding X1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding X1Str}"/>
+                    <xctk:DecimalUpDown Grid.Row="5" Grid.Column="4" x:Name="TextBoxY1"  FormatString="N0" Increment="1" Minimum="0" Value="{Binding Y1,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding Y1Str}"/>
+                    <xctk:DecimalUpDown Grid.Row="6" Grid.Column="4" x:Name="TextBoxRecWidth" FormatString="N0" Increment="1" Minimum="0" Value="{Binding RecWidth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding RecWidthStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="7" Grid.Column="4" x:Name="TextBoxRecHeight" FormatString="N0" Increment="1" Minimum="0" Value="{Binding RecHeight,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ToolTip="{Binding RecHeightStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="8" Grid.Column="4" x:Name="TextBoxFiltX" FormatString="N0" Increment="1" Minimum="0" Value="{Binding KSizeX,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding FilterXStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="9" Grid.Column="4" x:Name="TextBoxFiltY" FormatString="N0" Increment="1" Minimum="0" Value="{Binding KSizeY,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding FilterYStr}"/>
+                    <xctk:DecimalUpDown Grid.Row="10" Grid.Column="4" x:Name="TextBoxSigmaX" FormatString="F5" Increment="0.01" Value="{Binding SigmaX,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding SigmaX}"/>
+                    <xctk:DecimalUpDown Grid.Row="11" Grid.Column="4" x:Name="TextBoxSigmaY" FormatString="F5" Increment="0.01" Value="{Binding SigmaY,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding SigmaY}"/>
+
+
+                    <!-- 単位系の表示 --><!--
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="6" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="7" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="8" Grid.Column="2" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+
+                    <TextBlock Grid.Row="0" Grid.Column="5" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="5" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="5" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="5" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="5" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="5" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="6" Grid.Column="5" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="7" Grid.Column="5" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>
+                    <TextBlock Grid.Row="8" Grid.Column="5" Text="[pixel]" Style="{StaticResource LabelStyle}"></TextBlock>-->
+                </Grid>
+            </Grid>
+        </DockPanel>
+
+    </Grid>
+</Page>
