@@ -752,8 +752,9 @@ namespace std_Fujita
         /// <summary> XMLファイルを読み込んで設定更新  </summary>
         /// <param name="data"></param>
         /// <param name="fileName"></param>
-        public static void ReadXmlToXaml(CamViewAreaDVModel data, string fileName)
+        public static void ReadParamFromXml(string fileName)
         {
+            var data = new CamViewAreaDVModel(); 
             var serializer = new XmlSerializer(typeof(SettingsClass));
             using (var sr = new StreamReader(fileName, new UTF8Encoding(false)))
             {

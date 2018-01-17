@@ -69,19 +69,16 @@
             <DockPanel Dock="Left" Grid.Row="0" Grid.Column="0">
                 <Button x:Name="Button_Capture" Style="{StaticResource ButtonStyle}" Content="カメラ撮像" Click="Button_CamCapture_Click"  Height="40"/>
                 <TextBlock Text=" 撮影位置番号 " Style="{StaticResource TextBlockStyle}" />
-                <xcdg:DecimalUpDown x:Name="Decimal_UpDownCam" Style="{StaticResource DecimalStyle}" Value="1" Increment="1" Minimum="0" />
-                <CheckBox x:Name="CheckBox_CamUse" Content="カメラ不使用" Style="{StaticResource CheckBoxStyle}"  />                            
+                <xcdg:DecimalUpDown x:Name="Decimal_CapPositon" Style="{StaticResource DecimalStyle}" Value="1" Increment="1" Minimum="0" Height="10" Margin="0,44,0,35" Width="88" />
+                <CheckBox x:Name="CheckBox_CamUse" Content="カメラ不使用" Style="{StaticResource CheckBoxStyle}"  />
+                <CheckBox x:Name="CheckBox_AutoSettingRead" Content="撮影パラメータ自動読込" Style="{StaticResource CheckBoxStyle}"  />                
                 <Button x:Name="Button_SaveCamera1Bmp" Style="{StaticResource ButtonStyle}" Content="カメラ画像保存" Click="Button_SaveCamera_Click" Margin="2" Height="40"  />
-                <Button x:Name="Button_SaveXml1" Style="{StaticResource ButtonStyle}" Content="カメラ設定保存" Click="Button_SaveXml_Click" Margin="2" Height="40"  />
-                <Button x:Name="Button_SaveXml1Copy" Style="{StaticResource ButtonStyle}" Content="カメラ設定読込" Click="Button_LoadXml_Click" Margin="2" Height="40"  />
+                <Button x:Name="Button_SaveXml1" Style="{StaticResource ButtonStyle}" Content="カメラ設定保存" Click="Button_SaveSettingToXml_Click" Margin="2" Height="40"  />
+                <Button x:Name="Button_SaveXml1Copy" Style="{StaticResource ButtonStyle}" Content="カメラ設定読込" Click="Button_LoadSettingFromXml_Click" Margin="2" Height="40"  />
             </DockPanel>
             
             <!--測定結果表示-->
             <RichTextBox x:Name ="RichTextBox_Result" Grid.Row="2" Grid.Column="0" />
-            
         </Grid>
-        
-
-        
     </Grid>
 </Window>

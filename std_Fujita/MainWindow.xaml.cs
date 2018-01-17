@@ -20,6 +20,12 @@ namespace std_Fujita
     /// <summary> MainWindow.xaml の相互作用ロジック  </summary>
     public partial class MainWindow : Window
     {
+        /// <summary> 名前付きパイプ </summary>
+        private NamedPipeClientStream namedPipe;
+
+        /// <summary> パラメータ格納ディレクトリ </summary>
+        private string paramHangerDir;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -45,11 +51,10 @@ namespace std_Fujita
             var startupPath = Path.GetDirectoryName(exeFullPath);
 
             //ディレクトリの確保（無ければ作成）
-            if (!Directory.Exists(startupPath + settingPath))
-                Directory.CreateDirectory(startupPath + settingPath); //setting
+            if (!Directory.Exists(startupPath + settingPath))Directory.CreateDirectory(startupPath + settingPath); //setting
             if (!Directory.Exists(startupPath + logPth)) Directory.CreateDirectory(startupPath + logPth); //log出力
-            if (!Directory.Exists(startupPath + paramHangar))
-                Directory.CreateDirectory(startupPath + paramHangar); //各撮影位置番号毎のパラメータ保管
+            if (!Directory.Exists(startupPath + paramHangar))Directory.CreateDirectory(startupPath + paramHangar); //各撮影位置番号毎のパラメータ保管
+            paramHangerDir = startupPath + paramHangar;
 
             Trace.WriteLine($"スタートアップパス={startupPath}", "Debug");
 
@@ -67,8 +72,7 @@ namespace std_Fujita
 
                 tmpSettings.SaveToFile(settingFname);
 
-                MessageBox.Show($"設定ファイルを\n{settingFname}\nに保存しました.編集してください.", "File Missing Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBox.Show($"設定ファイルを\n{settingFname}\nに保存しました.編集してください.", "File Missing Error", MessageBoxButton.OK,MessageBoxImage.Error);
 
                 return;
             }
@@ -87,7 +91,6 @@ namespace std_Fujita
 
             //TCPの作成
             //名前付きパイプ生成
-            NamedPipeClientStream namedPipe = null;
             try
             {
                 namedPipe = new NamedPipeClientStream(settingTcp.ServerName, settingTcp.PipeNmae, settingTcp.PipeDirection);
@@ -177,42 +180,18 @@ namespace std_Fujita
             Trace.WriteLine($"カメラ情報取得に成功しました", "Debug");
         }
 
-        private void Button_CamCapture_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO
-            throw new NotImplementedException();
-        }
-
-        private void Button_SaveCamera_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO
-            throw new NotImplementedException();
-        }
-
-        private void Button_SaveXml_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO
-            throw new NotImplementedException();
-        }
-
-        private void Button_LoadXml_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO
-            throw new NotImplementedException();
-        }
-
         /// <summary>データ送信 </summary>
         /// <param name="pipe">送信するパイプ</param>
         /// <param name="cmd">送信するコマンド</param>
         /// <returns></returns>
         private void SendData(NamedPipeClientStream pipe, string cmd)
         {
-            //送受信するバイト配列
+            //送信するバイト配列
             var cmdBytes = Encoding.UTF8.GetBytes(cmd);
-            var recvBuf = new byte[pipe.InBufferSize];
 
             //送信関係デバッグ出力
             Trace.WriteLine($"送信文字列\n{cmd}", "Debug");
+
             var sb = new StringBuilder();
             sb.AppendLine("送信バイト配列\n");
             foreach (var cmdByte in cmdBytes)
@@ -233,13 +212,73 @@ namespace std_Fujita
             var tmpStr = Encoding.UTF8.GetString(recvBuf, 0, cnt).Split(new[] {','});
             return tmpStr;
         }
+
+        /// <summary> 撮像開始ボタン </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_CamCapture_Click(object sender, RoutedEventArgs e)
+        {
+            //キャプチャ番号を取得
+            var capNum = (int)Decimal_CapPositon.Value;
+
+            //撮影用パラメータ取得
+            if (CheckBox_AutoSettingRead.IsChecked == true)
+            {
+                //チェックボックスにチェックがある場合はcapNumに対応したファイルを読み込み反映する
+                var capParam = paramHangerDir + $@"\Cam1_pos_011_plate_{capNum:D3}_param.xml";
+                if (!File.Exists(capParam))
+                {
+                    //撮影用パラメータが存在しないので
+                    MessageBox.Show($"撮影用パラメータ\n{capParam}\nがありません.作成後、プログラムを再起動してください", "File Missing Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Environment.Exit(2);
+                }
+                else
+                {
+                    CamViewAreaDVModel.ReadParamFromXml(capParam);
+                }
+            }
+            
+            var camSettng = SetImageStruct.GetSettingStruct(new CamViewAreaDVModel());
+            
+            var richText = RichTextBox_Result;
+            var img = CaptureFunction(namedPipe, richText, camSettng, capNum, paramHangar, 1, out imgJudge);
+            if (img == null || imgJudge != "Image")
+            {
+                Trace.WriteLine($"撮像に失敗しました.\n", "Debug");
+                MessageBox.Show($"撮像に失敗しました.\n撮像プログラムの設定を確認してください. エラー：{imgJudge}", "撮像エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                Environment.Exit(7);
+            }
+
+            c1ImageView.Source = img;
+        }
+
+        /// <summary> 画像保存ボタン(bmp保存)  </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_SaveCamera_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
+
+        /// <summary> 設定保存ボタン(xml) </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_SaveSettingToXml_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
+
+        /// <summary> 設定読込ボタン(xml) </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_LoadSettingFromXml_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
     }
-
-
-    //-------------------------------------------------------------------------------------------------------
-
-
-
 
     //--------------------------------------------------------------------------------------------------------
 
@@ -373,7 +412,7 @@ namespace std_Fujita
         [MarshalAs(UnmanagedType.I4)] public int OffsetY;
 
         /// <summary> ViewModelの値を構造体に代入 </summary>
-        public SetImageStruct GetSettingStruct(CamViewAreaDVModel data)
+        public static SetImageStruct GetSettingStruct(CamViewAreaDVModel data)
         {
             var setStruct = new SetImageStruct
             {
