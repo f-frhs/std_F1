@@ -381,15 +381,15 @@ cv::Mat CImageProcessor::DrawCircles(const cv::Mat image, const std::vector<cv::
 {
 	for (auto xy : cornerXyList)
 	{
-		cv::circle(image, xy, radius, cv::Scalar(0, 0, 255), thickness);
-		putText(
-			image,
-			stringf("(%4d, %4d)", xy(0), xy(1)),
-			cv::Point(xy),
-			cv::FONT_HERSHEY_PLAIN,
-			0.8,
-			CV_RGB(0, 255, 0),
-			1);
+		//cv::circle(image, xy, radius, cv::Scalar(0, 0, 255), thickness);
+		//putText(
+		//	image,
+		//	stringf("(%4d, %4d)", xy(0), xy(1)),
+		//	cv::Point(xy),
+		//	cv::FONT_HERSHEY_PLAIN,
+		//	0.8,
+		//	CV_RGB(0, 255, 0),
+		//	1);
 	}																						
 	return image;
 }

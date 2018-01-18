@@ -148,7 +148,7 @@ namespace std_Fujita
             //接続カメラの番号送信
             var connectCam = "ConnectCam";
             var camId = CheckBox_CamUse.IsChecked == true ? 999 : 001; //カメラ不使用の場合はID999を送信
-            SendData(namedPipe, connectCam + "," + camId);
+            SendData(namedPipe, Encoding.UTF8.GetBytes(connectCam + "," + camId));
 
             //接続カメラの接続信号受信
             if (RecvData(namedPipe)[0] != "Cam1Connect")
@@ -162,7 +162,7 @@ namespace std_Fujita
 
             //接続カメラの情報リクエスト送信
             var infoCam = "GetCaminfo";
-            SendData(namedPipe, infoCam + "," + camId);
+            SendData(namedPipe, Encoding.UTF8.GetBytes(infoCam + "," + camId));
 
             //接続カメラの情報受信
             //TODO:現在C++側にNoCameraとFailedGetCameraInfoしかない(カメラ情報取得の関係は後回しとなったため)
@@ -180,13 +180,10 @@ namespace std_Fujita
         /// <param name="pipe">送信するパイプ</param>
         /// <param name="cmd">送信するコマンド</param>
         /// <returns></returns>
-        private void SendData(NamedPipeClientStream pipe, string cmd)
+        private void SendData(NamedPipeClientStream pipe, byte[] cmdBytes)
         {
-            //送信するバイト配列
-            var cmdBytes = Encoding.UTF8.GetBytes(cmd);
-
             //送信関係デバッグ出力
-            Trace.WriteLine($"送信文字列\n{cmd}", "Debug");
+            Trace.WriteLine($"送信文字列\n{cmdBytes}", "Debug");
             var sb = new StringBuilder();
             sb.AppendLine("送信バイト配列\n");
             foreach (var cmdByte in cmdBytes)
@@ -218,14 +215,15 @@ namespace std_Fujita
         /// <param name="e"></param>
         private void Button_CamCapture_Click(object sender, RoutedEventArgs e)
         {
+            //撮影用パラメータの送信と応答受信
             //キャプチャ番号を取得
             var capNum = (int)Decimal_CapPositon.Value;
 
-            //撮影用パラメータ取得
+            //撮影用パラメータ設定
             if (CheckBox_AutoSettingRead.IsChecked == true)
             {
                 //チェックボックスにチェックがある場合はcapNumに対応したファイルを読み込み反映する
-                var capParam = paramHangerDir + $@"\Cam1_pos_011_plate_{capNum:D3}_param.xml";
+                var capParam = paramHangerDir + $@"\Cam001_pos_011_plate_{capNum:D3}_param.xml";
                 if (!File.Exists(capParam))
                 {
                     //撮影用パラメータが存在しない場合
@@ -238,24 +236,81 @@ namespace std_Fujita
             }
             
             //ヘッダー：判定部
-            var cmdStr = "StructAll";
+            var cmdSendStr = "StructAll";
 
+            //送信用構造体(パラメータ)取得
             var camSettng = SetImageStruct.GetSettingStruct(new CamViewAreaDVModel());
-            
 
+            //送信用バイト配列取得(ヘッダー+送信用構造体)
+            var cmdSendStrBt = SetImageStruct.StructToByte(cmdSendStr, camSettng);
 
+            //撮影用パラメータ送信
+            SendData(namedPipe, cmdSendStrBt);
 
-
-            var richText = RichTextBox_Result;
-            var img = CaptureFunction(namedPipe, richText, camSettng, capNum, paramHangar, 1, out imgJudge);
-            if (img == null || imgJudge != "Image")
+            //応答受信
+            if (RecvData(namedPipe)[0] != "StructerReceived")
             {
-                Trace.WriteLine($"撮像に失敗しました.\n", "Debug");
-                MessageBox.Show($"撮像に失敗しました.\n撮像プログラムの設定を確認してください. エラー：{imgJudge}", "撮像エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-                Environment.Exit(7);
+                Trace.WriteLine($"構造体(撮影パラメータ)の送受信に失敗しました", "Error");
+                Environment.Exit(2);
+            }
+            
+            //撮影位置番号と撮像開始信号の送信と応答受信
+            //ヘッダー：判定部
+            var cmdSendCapStr = string.Format(string.Format(CheckBox_CamUse.IsChecked == false ? $"Capture,{capNum:D3}" : $"OfflineImage,{capNum:D3}"));
+            var cmdSendCapBt = Encoding.UTF8.GetBytes(cmdSendCapStr);
+            
+            //撮影位置番号と撮像開始信号送信
+            SendData(namedPipe, cmdSendCapBt);
+
+            //応答受信
+            if (RecvData(namedPipe)[0] != "SucceedCapture")
+            {
+                Trace.WriteLine($"撮像中にエラーが発生しました", "Error");
+                Environment.Exit(3);
             }
 
-            c1ImageView.Source = img;
+            //撮影位置番号と測定結果要請の送信と応答受信及びに測定結果表示
+            //ヘッダー:判定部
+            var cmdGetResultStr = "GetMeasureData";
+
+            //送信用バイト配列取得(ヘッダー+送信用構造体)
+            var cmdGetResultBt = SetImageStruct.StructToByte(cmdGetResultStr, camSettng);
+
+            //撮影位置番号と定結果要請送信
+            SendData(namedPipe, cmdGetResultBt);
+
+            //応答受信
+            var resultStrAr = RecvData(namedPipe);
+
+            //richTextに表示
+            var paragraph = new Paragraph();
+            var recDetaSize = 0;
+            try
+            {
+                recDetaSize = int.Parse(resultStrAr[1]);
+            }
+            catch (ArgumentNullException ane)
+            {
+                Trace.WriteLine("結果受信中にエラーが発生しました","Error");
+                Environment.Exit(4);
+            }
+
+            if ()
+            {
+                
+            }
+            var resultStr = resultStrAr[0] + "[" + resultStrAr[2] + "]" + "Coordinates" + "[" + resultStrAr[3] + "]";
+
+            //var richText = RichTextBox_Result;
+            //var img = CaptureFunction(namedPipe, richText, camSettng, capNum, paramHangar, 1, out imgJudge);
+            //if (img == null || imgJudge != "Image")
+            //{
+            //    Trace.WriteLine($"撮像に失敗しました.\n", "Debug");
+            //    MessageBox.Show($"撮像に失敗しました.\n撮像プログラムの設定を確認してください. エラー：{imgJudge}", "撮像エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    Environment.Exit(7);
+            //}
+
+            //c1ImageView.Source = img;
         }
 
         /// <summary> 画像保存ボタン(bmp保存)  </summary>
@@ -451,7 +506,7 @@ namespace std_Fujita
         /// <param name="judgStr">ヘッダー判定子</param>
         /// <param name="sStruct">構造体</param>
         /// <returns></returns>
-        public byte[] StructToByte(string judgStr, SetImageStruct sStruct)
+        public static byte[] StructToByte(string judgStr, SetImageStruct sStruct)
         {
             //ヘッダー：判定部
             var headJudgBt = Encoding.UTF8.GetBytes(judgStr);
@@ -460,14 +515,14 @@ namespace std_Fujita
             var headSizeInt = Marshal.SizeOf(typeof(SetImageStruct));
 
             //構造体をbyteに変更
-            var strBytes = new byte[headSizeInt];
+            var strBt = new byte[headSizeInt];
             var ptr = Marshal.AllocHGlobal(headSizeInt);
             Marshal.StructureToPtr(sStruct, ptr, true);
-            Marshal.Copy(ptr, strBytes, 0, headSizeInt);
+            Marshal.Copy(ptr, strBt, 0, headSizeInt);
             Marshal.FreeHGlobal(ptr);
 
-            var sendStrAllSize = Encoding.UTF8.GetBytes(headSizeInt.ToString() + ",");
-            var tempBt = headJudgBt.Concat(sendStrAllSize).Concat(strBytes).ToArray();
+            var sendByteSizeBt = Encoding.UTF8.GetBytes(headSizeInt.ToString() + ",");
+            var tempBt = headJudgBt.Concat(sendByteSizeBt).Concat(strBt).ToArray();
 
             return tempBt;
         }

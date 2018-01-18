@@ -82,7 +82,7 @@
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)$(Platform)\$(Configuration)\</IntDir>
     <IncludePath>C:\cereal-1.2.2\include;C:\opencv3.2\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\opencv3.2\build\x64\vc14\lib;E:\opencv3.2\build\x64\vc14\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\opencv3.2\build\x64\vc14\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
