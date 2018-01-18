@@ -228,7 +228,7 @@ namespace std_Fujita
                 var capParam = paramHangerDir + $@"\Cam1_pos_011_plate_{capNum:D3}_param.xml";
                 if (!File.Exists(capParam))
                 {
-                    //撮影用パラメータが存在しないので
+                    //撮影用パラメータが存在しない場合
                     MessageBox.Show($"撮影用パラメータ\n{capParam}\nがありません.作成後、プログラムを再起動してください", "File Missing Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     Environment.Exit(2);
                 }
@@ -238,6 +238,9 @@ namespace std_Fujita
                 }
             }
             
+            //ヘッダー：判定部
+            var cmdStr = "StructAll";
+
             var camSettng = SetImageStruct.GetSettingStruct(new CamViewAreaDVModel());
             
             var richText = RichTextBox_Result;
