@@ -105,8 +105,6 @@ namespace std_Fujita
                 Trace.WriteLine($"パイプ設定中にエラーが発生.\nMessage={ae.Message}\nStack={ae.StackTrace}", "Error");
             }
 
-            //var namedPipe = new NamedPipeClientStream(@".", "TestPipe1", PipeDirection.InOut);
-
             //タイムアウト設定
             if (namedPipe.CanTimeout)
             {
@@ -116,9 +114,7 @@ namespace std_Fujita
 
 
             //カメラを使用して画像解析を行うかを確認
-            var checkUseIdsCamera =
-                MessageBox.Show("IDSカメラは接続されていますか？\n保存してある画像を解析する場合はNoを押してください", "IDSカメラ使用の可否", MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) != MessageBoxResult.No;
+            var checkUseIdsCamera = MessageBox.Show("IDSカメラは接続されていますか？\n保存してある画像を解析する場合はNoを押してください", "IDSカメラ使用の可否", MessageBoxButton.YesNo,MessageBoxImage.Question) != MessageBoxResult.No;
             if (!checkUseIdsCamera)CheckBox_CamUse.IsChecked = true;
             
             //サーバの接続可否確認
@@ -152,7 +148,7 @@ namespace std_Fujita
             //接続カメラの番号送信
             var connectCam = "ConnectCam";
             var camId = CheckBox_CamUse.IsChecked == true ? 999 : 001; //カメラ不使用の場合はID999を送信
-            SendData(namedPipe, connectCam + camId);
+            SendData(namedPipe, connectCam + "," + camId);
 
             //接続カメラの接続信号受信
             if (RecvData(namedPipe)[0] != "Cam1Connect")
@@ -166,7 +162,7 @@ namespace std_Fujita
 
             //接続カメラの情報リクエスト送信
             var infoCam = "GetCaminfo";
-            SendData(namedPipe, infoCam+camId);
+            SendData(namedPipe, infoCam + "," + camId);
 
             //接続カメラの情報受信
             //TODO:現在C++側にNoCameraとFailedGetCameraInfoしかない(カメラ情報取得の関係は後回しとなったため)
@@ -191,7 +187,6 @@ namespace std_Fujita
 
             //送信関係デバッグ出力
             Trace.WriteLine($"送信文字列\n{cmd}", "Debug");
-
             var sb = new StringBuilder();
             sb.AppendLine("送信バイト配列\n");
             foreach (var cmdByte in cmdBytes)
@@ -199,6 +194,7 @@ namespace std_Fujita
                 sb.Append($"{cmdByte:X2} ");
             }
             Trace.WriteLine($"{sb.ToString()}", "Debug");
+
             pipe.Write(cmdBytes, 0, cmdBytes.Length);
         }
 
@@ -210,6 +206,10 @@ namespace std_Fujita
             var recvBuf = new byte[pipe.InBufferSize];
             var cnt = pipe.Read(recvBuf, 0, recvBuf.Length);
             var tmpStr = Encoding.UTF8.GetString(recvBuf, 0, cnt).Split(new[] {','});
+
+            //受信関係デバッグ出力
+            Trace.WriteLine($"送信文字列\n{tmpStr}", "Debug");
+
             return tmpStr;
         }
 
@@ -230,7 +230,6 @@ namespace std_Fujita
                 {
                     //撮影用パラメータが存在しないので
                     MessageBox.Show($"撮影用パラメータ\n{capParam}\nがありません.作成後、プログラムを再起動してください", "File Missing Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Environment.Exit(2);
                 }
                 else
                 {
@@ -240,6 +239,10 @@ namespace std_Fujita
             
             var camSettng = SetImageStruct.GetSettingStruct(new CamViewAreaDVModel());
             
+
+
+
+
             var richText = RichTextBox_Result;
             var img = CaptureFunction(namedPipe, richText, camSettng, capNum, paramHangar, 1, out imgJudge);
             if (img == null || imgJudge != "Image")
