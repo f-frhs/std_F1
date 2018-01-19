@@ -295,22 +295,77 @@ namespace std_Fujita
                 Environment.Exit(4);
             }
 
-            if ()
+            if (recDetaSize == resultStrAr[3].Length)
             {
-                
+                var resultStr = resultStrAr[0] + "[" + resultStrAr[2] + "]" + "Coordinates" + "[" + resultStrAr[3] + "]";
+                paragraph.Inlines.Add(resultStr);
+                RichTextBox_Result.Document.Blocks.Add(paragraph);
             }
-            var resultStr = resultStrAr[0] + "[" + resultStrAr[2] + "]" + "Coordinates" + "[" + resultStrAr[3] + "]";
+            else
+            {
+                Trace.WriteLine("受信した結果のサイズ情報に誤りがあります","Error");
+                Environment.Exit(5);
+            }
 
-            //var richText = RichTextBox_Result;
-            //var img = CaptureFunction(namedPipe, richText, camSettng, capNum, paramHangar, 1, out imgJudge);
-            //if (img == null || imgJudge != "Image")
-            //{
-            //    Trace.WriteLine($"撮像に失敗しました.\n", "Debug");
-            //    MessageBox.Show($"撮像に失敗しました.\n撮像プログラムの設定を確認してください. エラー：{imgJudge}", "撮像エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    Environment.Exit(7);
-            //}
+            //撮影位置番号と編集画像の要請と画像の受信
+            //ヘッダー：判定部
+            var cmdGetImgStr = "GetImage";
 
-            //c1ImageView.Source = img;
+            //送信用バイト配列取得(ヘッダー+送信用構造体)
+            var cmdGetImgBt = SetImageStruct.StructToByte(cmdGetImgStr, camSettng);
+
+            //撮影位置番号と定結果要請送信
+            SendData(namedPipe, cmdGetImgBt);
+
+            //受信用のバッファサイズ取得
+            var imgBytes = new byte[namedPipe.InBufferSize];
+            var rCnt = namedPipe.Read(imgBytes, 0, imgBytes.Length);    //受信
+
+            //Byte->画像変換
+            var imgStrAr = RecvData(namedPipe);
+            var imgStr = string.Empty;
+            var imgSize = 0;
+            var imgWidth = 0;
+            var imgHeigh = 0;
+
+            try
+            {
+                imgStr = imgStrAr[0];
+                imgSize = int.Parse(imgStrAr[1]);
+                imgWidth = int.Parse(imgStrAr[2]);
+                imgHeigh = int.Parse(imgStrAr[3]);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine("画像の変換中にエラーが発生しました","Error");
+                Environment.Exit(6);
+            }
+
+            //byte->画像生成->Xamlに表示
+            if (imgStr == "Image")
+            {
+                var imgRawBtAr = new byte[imgSize];
+                Buffer.BlockCopy(imgBytes, rCnt - imgSize, imgRawBtAr, 0, imgSize); //bmp rawを取得する
+
+                var bitmapImg = new BitmapImage();
+
+                var bmp = ByteArrayToImage(imgRawBtAr, imgWidth, imgHeigh);
+                var ms = new MemoryStream();
+                bmp.Save(ms,ImageFormat.Bmp);
+                ms.Position = 0;
+                bitmapImg.BeginInit();
+                bitmapImg.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImg.StreamSource = ms;
+                bitmapImg.EndInit();
+                bitmapImg.Freeze();
+
+                ImageView.Source = bitmapImg;
+            }
+            else
+            {
+                Trace.WriteLine($"撮像に失敗しました.", "Error");
+                Environment.Exit(7);                 
+            }
         }
 
         /// <summary> 画像保存ボタン(bmp保存)  </summary>
@@ -318,8 +373,20 @@ namespace std_Fujita
         /// <param name="e"></param>
         private void Button_SaveCamera_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
-            throw new NotImplementedException();
+            //書き込むファイルを指定
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "BMPファイル(.bmp)|*.bmp|All Files (*.*)|*.*";
+            saveFileDialog.Title = "";
+
+            //bmpファイルの保存
+            var bmpSource = c1ImageView.Source as BitmapSource;
+            if (bmpSource == null) return;
+            var encoder = new BmpBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bmpSource));
+            using (var fs = new FileStream(fname, FileMode.Create))
+            {
+                encoder.Save(fs);
+            }
         }
 
         /// <summary> 設定保存ボタン(xml) </summary>
@@ -339,6 +406,31 @@ namespace std_Fujita
             //TODO
             throw new NotImplementedException();
         }
+
+        /// <summary> バイト配列をBitmapに変換 </summary>
+        /// <param name="b">バイトサイズ</param>
+        /// <param name="w">Bitmap幅</param>
+        /// <param name="h">Bitmap高さ</param>
+        private static Bitmap ByteArrayToImage(byte[] b, int w, int h)
+        {
+            var bmp = new Bitmap(w, h, PixelFormat.Format32bppArgb);
+
+            //bitmapデータを作成する。
+            //ピクセルに値を書き込むために、ピクセルをメモリにロックしておく。
+            var bmpData = bmp.LockBits(
+                new Rectangle(0, 0, bmp.Width, bmp.Height),
+                ImageLockMode.WriteOnly, bmp.PixelFormat);
+
+            //バイト配列を BitmapData.Scan0 へコピーする
+            Marshal.Copy(b, 0, bmpData.Scan0, b.Length);
+
+            //ピクセルをアンロックする
+            bmp.UnlockBits(bmpData);
+
+            return bmp;
+        }
+
+
     }
 
     //--------------------------------------------------------------------------------------------------------
