@@ -749,6 +749,23 @@ namespace std_Fujita
 
         private Dictionary<string, IEnumerable> errors = new Dictionary<string, IEnumerable>();
 
+        /// <summary> 撮影設定をXMLファイルに書き込む </summary>
+        /// <param name="fileName"></param>
+        public static void SaveParamToXml(string fileName)
+        {
+            var camParams = new CamParams();
+            var data = camParams.BaseContainer.DataContext as CamViewAreaDVModel;
+            if (data == null) return;
+            var settings = SettingClassInfo.GetStructSettings(data);
+
+            //XMLファイルに保存する
+            var serializer = new XmlSerializer(typeof(SettingsClass));
+            var sw = new StreamWriter(fileName, false, new UTF8Encoding(false));
+            serializer.Serialize(sw, settings);
+            sw.Close();            
+        }
+
+
         /// <summary> XMLファイルを読み込んで設定更新  </summary>
         /// <param name="data"></param>
         /// <param name="fileName"></param>

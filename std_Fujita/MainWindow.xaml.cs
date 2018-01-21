@@ -376,14 +376,17 @@ namespace std_Fujita
             //書き込むファイルを指定
             var saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "BMPファイル(.bmp)|*.bmp|All Files (*.*)|*.*";
-            saveFileDialog.Title = "";
+            saveFileDialog.Title = "画像保存";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName == "")return;
 
             //bmpファイルの保存
-            var bmpSource = c1ImageView.Source as BitmapSource;
+            var bmpSource = ImageView.Source as BitmapSource;
             if (bmpSource == null) return;
             var encoder = new BmpBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bmpSource));
-            using (var fs = new FileStream(fname, FileMode.Create))
+            using (var fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
             {
                 encoder.Save(fs);
             }
@@ -394,8 +397,15 @@ namespace std_Fujita
         /// <param name="e"></param>
         private void Button_SaveSettingToXml_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
-            throw new NotImplementedException();
+            //書き込むファイルを指定
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "XMLファイル(.xml)|*.xml|All Files (*.*)|*.*";
+            saveFileDialog.Title = "設定保存";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName == "")return;
+
+            CamViewAreaDVModel.SaveParamToXml(saveFileDialog.FileName);
         }
 
         /// <summary> 設定読込ボタン(xml) </summary>
@@ -403,8 +413,15 @@ namespace std_Fujita
         /// <param name="e"></param>
         private void Button_LoadSettingFromXml_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
-            throw new NotImplementedException();
+            //書き込むファイルを指定
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "XMLファイル(.xml)|*.xml|All Files (*.*)|*.*";
+            saveFileDialog.Title = "設定保存";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName == "")return;
+
+            CamViewAreaDVModel.ReadParamFromXml(saveFileDialog.FileName);
         }
 
         /// <summary> バイト配列をBitmapに変換 </summary>
