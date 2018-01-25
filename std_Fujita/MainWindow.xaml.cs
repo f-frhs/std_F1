@@ -78,7 +78,7 @@ namespace std_Fujita
             }
 
             //ログファイルの出力設定
-            var fname = DateTime.Now.ToString("yyyy_MMdd_HHmmss") + "AssyLog";
+            var fname = DateTime.Now.ToString("yyyy_MMdd_HHmmss") + "AssyLog.txt";
             var traceListener = new TextWriterTraceListener(startupPath + logPth + fname);
             Trace.AutoFlush = true;
             Trace.Listeners.Add(traceListener);
