@@ -20,7 +20,7 @@ namespace std_Fujita
     /// <summary> MainWindow.xaml の相互作用ロジック  </summary>
     public partial class MainWindow : Window
     {
-        /// <summary> 名前付きパイプ </summary>
+        /// <summary> 名前付きパイプ：クライアント </summary>
         private NamedPipeClientStream namedPipe;
 
         /// <summary> パラメータ格納ディレクトリ </summary>
@@ -112,7 +112,6 @@ namespace std_Fujita
                 namedPipe.ReadTimeout = settingTcp.RecvTimeout;
             }
 
-
             //カメラを使用して画像解析を行うかを確認
             var checkUseIdsCamera = MessageBox.Show("IDSカメラは接続されていますか？\n保存してある画像を解析する場合はNoを押してください", "IDSカメラ使用の可否", MessageBoxButton.YesNo,MessageBoxImage.Question) != MessageBoxResult.No;
             if (!checkUseIdsCamera)CheckBox_CamUse.IsChecked = true;
@@ -138,10 +137,20 @@ namespace std_Fujita
                 }
             } while (!connectToServer);
 
+            //todo:Dummy
+            //SendData(namedPipe,Encoding.UTF8.GetBytes("aaa"));
+            //var a = 10;
+            var write = new StreamWriter(namedPipe);
+            write.WriteLine("test");
+
+            Thread.Sleep(10000);
+
             //サーバの接続完了信号受信
             var recvBuf = new byte[namedPipe.InBufferSize];
             var cnt = namedPipe.Read(recvBuf, 0, recvBuf.Length);
             var rStr = Encoding.UTF8.GetString(recvBuf, 0, cnt);
+
+
 
             Trace.WriteLine($"パイプ接続完了文字列={rStr}", "Debug");
 
@@ -155,7 +164,8 @@ namespace std_Fujita
             {
                 Trace.WriteLine($"カメラ接続に失敗しました = {RecvData(namedPipe)[0]}", "Error");
                 MessageBox.Show($"カメラ接続に失敗しました = {RecvData(namedPipe)[0]}", "カメラ接続エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-                Environment.Exit(0);
+                //Environment.Exit(0);
+                return;
             }
 
             Trace.WriteLine($"カメラ接続に成功しました", "Debug");

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.IO.Pipes;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace std_dummyCpp
@@ -16,22 +18,53 @@ namespace std_dummyCpp
             //サーバ名
             var PipeName = "TestPipe1";
 
+            //名前付きパイプ：サーバ
+            //NamedPipeServerStream stream;
+
             //クライアントからの接続をまつ
-            var stream = new NamedPipeServerStream(PipeName);           
-            //ConnectFromClient(stream);
+            var stream = new NamedPipeServerStream(PipeName, PipeDirection.InOut);           
             stream.WaitForConnection();
+
+            var isConnect = stream.IsConnected;
+
+            //タイムアウト設定
+            if (stream.CanTimeout)
+            {
+                stream.WriteTimeout = 1000;
+                stream.ReadTimeout = 1000;
+            }
+
+            //Thread.Sleep(5000);
+
+            var reader = new StreamReader(stream);
+
+           //var task = Task.Run(()=>Reader(reader));
+           var result = reader.ReadLine();
+            Console.WriteLine(result);
+           //var result  = task.Result;
+
+            var aa = 10;
 
             var recvBuf = new byte[stream.InBufferSize];
             var cnt = stream.Read(recvBuf, 0, recvBuf.Length);
             var rStr = Encoding.UTF8.GetString(recvBuf, 0, cnt);
 
+            var a = 10;
+
             //送信：接続完了
             var sendConectStr = "TestPipe1,connect";
-            SendData(stream, Encoding.UTF8.GetBytes(sendConectStr));
+            var cmdBytes = Encoding.UTF8.GetBytes(sendConectStr);
+            stream.Write(cmdBytes, 0, cmdBytes.Length);
 
             Console.WriteLine("aaa");
             Console.ReadLine();
 
+        }
+
+        private static async Task<string> Reader(StreamReader reader)
+        {
+            var temp = await reader.ReadLineAsync();
+            return temp;
         }
 
         /// <summary> 名前付きパイプ接続待ち </summary>
@@ -65,19 +98,9 @@ namespace std_dummyCpp
         /// <param name="pipe">送信するパイプ</param>
         /// <param name="cmd">送信するコマンド</param>
         /// <returns></returns>
-        private static void SendData(NamedPipeServerStream pipe, byte[] cmdBytes)
-        {
-            //送信関係デバッグ出力
-            Trace.WriteLine($"送信文字列\n{cmdBytes}", "Debug");
-            var sb = new StringBuilder();
-            sb.AppendLine("送信バイト配列\n");
-            foreach (var cmdByte in cmdBytes)
-            {
-                sb.Append($"{cmdByte:X2} ");
-            }
-            Trace.WriteLine($"{sb.ToString()}", "Debug");
-
-            pipe.Write(cmdBytes, 0, cmdBytes.Length);
-        }
+        //private static void SendData(NamedPipeServerStream pipe, byte[] cmdBytes)
+        //{
+        //    pipe.Write(cmdBytes, 0, cmdBytes.Length);
+        //}
     }
 }
