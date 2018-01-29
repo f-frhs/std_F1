@@ -34,7 +34,7 @@ namespace std_Fujita
             CamParams.BaseContainer.DataContext = new CamViewAreaDVModel();
         }
 
-        /// <summary>  </summary>
+        /// <summary> MainWindowロード時に実行 </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -138,12 +138,8 @@ namespace std_Fujita
             } while (!connectToServer);
 
             //todo:Dummy
-            //SendData(namedPipe,Encoding.UTF8.GetBytes("aaa"));
-            //var a = 10;
-            var write = new StreamWriter(namedPipe);
-            write.WriteLine("test");
+            SendData(namedPipe, Encoding.UTF8.GetBytes("aaa"));
 
-            Thread.Sleep(10000);
 
             //サーバの接続完了信号受信
             var recvBuf = new byte[namedPipe.InBufferSize];
